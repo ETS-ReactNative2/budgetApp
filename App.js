@@ -31,17 +31,6 @@ class AccountsScreen extends React.Component {
   }
 }
 
-class LedgerScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Ledger!</Text>
-      </View>
-    );
-  }
-}
-
-
 class AnalysisScreen extends React.Component {
   render() {
     return (
