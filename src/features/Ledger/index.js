@@ -1,8 +1,14 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
+import { connect } from 'react-redux'
 import styles from './styles'
 import Button from '../../../src/components/Button'
 import LedgerEntry from './components/LedgerEntry'
+import {
+  addLedgerEntry,
+  updateEntryDate,
+  updateEntryDescription,
+} from './actions'
 
 class Ledger extends React.Component {
     constructor() {
@@ -10,7 +16,6 @@ class Ledger extends React.Component {
         this.getDate = this.getDate.bind(this)
         this.handlePress = this.handlePress.bind(this)
         this.state = {
-            ledgerEntries: [],
             showDatePicker: false,
         }
     }
@@ -28,33 +33,47 @@ class Ledger extends React.Component {
             date: this.getDate().slice(5),
             description: 'wasted it',
         }
-        this.setState({
-            ledgerEntries: [...this.state.ledgerEntries, newEntry]
-        })
+        console.log(this.props, newEntry)
+        this.props.addLedgerEntry(newEntry)
     }
 
     render() {
-        const { ledgerEntries } = this.state
+        const { ledger } = this.props
+        console.log(this.props)
         return (
-            <View style={styles.ledger}>
-                <ScrollView style={styles.ledgerEntries}>
+            <ScrollView >
+                <View style={styles.ledger}>
                     {
                         // This will render a row for each data element.
-                        ledgerEntries.map((entry, i) => 
-                            <LedgerEntry
-                                entry={entry}
-                                key={i}
-                            />
-                        )
+                        // this.props.ledger.map((entry, i) => 
+                        //     <LedgerEntry
+                        //         key={entry.description+i}
+                        //         entry={entry}
+                        //         index={i}
+                        //     />
+                        // )
+                        // <Text style={{flex:1}}>Hey!</Text>
+                        // <Text style={{flex:1}}>{ledger.ledger.length}</Text>
                     }
                     <View style={styles.buttonContainer}>
                         <Button label="New Entry" onPress={this.handlePress} raised/>
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 }
 
-export default Ledger
+const mapStateToProps = state => ({
+    ledger: state.ledger
+})
+
+const mapDispatchToProps = dispatch => ({
+    addLedgerEntry: (ledgerEntry) => dispatch(addLedgerEntry(ledgerEntry))
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Ledger)
 

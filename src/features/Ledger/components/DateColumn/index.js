@@ -6,9 +6,8 @@ class DateColumn extends React.Component {
     constructor() {
         super()
     }
-    
+
     render() {
-        console.warn(this.props.date)
         return (
             <View style={{flex: 1}} onPress={this.props.onDatePress}>
                 <DatePicker
