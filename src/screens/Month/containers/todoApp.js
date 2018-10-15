@@ -6,7 +6,7 @@ import * as todoActions from '../actions/todoActions'
 import * as visibilityActions from '../actions/visibilityActions'
 import * as addModalVisibilityActions from '../actions/addModalVisibilityActions'
 import { VisibilityFilters } from '../actions/actionTypes'
-import TitleBar from '../components/title-bar'
+import AddButton from '../components/add-button'
 import TodoList from '../components/todo-list'
 import AddTodo from '../components/add-todo'
 import Filters from '../components/filters'
@@ -49,19 +49,18 @@ class TodoApp extends React.Component {
         const { todos, filter, dispatch, addModalVisible } = this.props
         return (
             <View style={styles.container}>
-                <TitleBar
-                    activeFilter={filter}
-                    {...bindActionCreators(addModalVisibilityActions, dispatch)}
-                />
+                <AddButton {...bindActionCreators(addModalVisibilityActions, dispatch)} />
                 <TodoList
                     activeFilter={filter}
                     todos={todos}
                     {...bindActionCreators(todoActions, dispatch)}
                 />
-                <Filters
-                    activeFilter={filter}
-                    {...bindActionCreators(visibilityActions, dispatch)}
-                />
+                {
+                    // <Filters
+                    //     activeFilter={filter}
+                    //     {...bindActionCreators(visibilityActions, dispatch)}
+                    // />
+                }
                 <Modal
                     animationType="slide"
                     transparent={false}
