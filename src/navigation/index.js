@@ -4,8 +4,8 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from 'react-navigation'
 import { View, Text } from 'react-native'
-// import Ledger from '../../src/features/Ledger'
-import Month from '../features/Month/containers/app'
+// import Ledger from '../../src/screens/Ledger'
+import Month from '../screens/Month/containers/app'
 
 class LedgerScreen extends React.Component {
     render() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Modal } from 'react-native'
+import { Alert, StyleSheet, View, Modal } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as todoActions from '../actions/todoActions'
@@ -12,9 +12,6 @@ import AddTodo from '../components/add-todo'
 import Filters from '../components/filters'
 
 import store from '../../../store'
-
-store.dispatch(todoActions.addTodo('Foo Bar'))
-store.dispatch(todoActions.addTodo('Hello World'))
 
 @connect(state => ({
     todos: state.todos.filter(todo => {
@@ -33,6 +30,21 @@ store.dispatch(todoActions.addTodo('Hello World'))
     addModalVisible: state.addModal.visible,
 }))
 class TodoApp extends React.Component {
+    handleCloseModal = () => {
+        Alert.alert(
+            'Back Button Pressed',
+            'Discard changes?',
+            [
+                { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+                {
+                    text: 'OK',
+                    onPress: () => store.dispatch(addModalVisibilityActions.hideModal()),
+                },
+            ],
+            { cancelable: false },
+        )
+    }
+
     render() {
         const { todos, filter, dispatch, addModalVisible } = this.props
         return (
@@ -50,7 +62,12 @@ class TodoApp extends React.Component {
                     activeFilter={filter}
                     {...bindActionCreators(visibilityActions, dispatch)}
                 />
-                <Modal animationType="slide" transparent={false} visible={addModalVisible}>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={addModalVisible}
+                    onRequestClose={this.handleCloseModal}
+                >
                     <AddTodo
                         {...bindActionCreators(todoActions, dispatch)}
                         {...bindActionCreators(addModalVisibilityActions, dispatch)}
