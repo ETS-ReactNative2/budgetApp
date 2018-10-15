@@ -1,36 +1,36 @@
-import { create } from "react-native-platform-stylesheet";
-import { navy03 } from "../../../src/styles/colors.js";
+import { create } from 'react-native-platform-stylesheet'
+import { navy03 } from '../../styles/colors'
 
 export default create({
     button: {
-        padding: 15
+        padding: 15,
     },
     buttonRaised: {
         borderRadius: 5,
         ios: {
-            backgroundColor: navy03
+            backgroundColor: navy03,
         },
         android: {
             backgroundColor: navy03,
-            elevation: 3
-        }
+            elevation: 3,
+        },
     },
     buttonFlat: {},
     buttonLabel: {
-        textAlign: "center",
+        textAlign: 'center',
         android: {
-            fontWeight: "bold"
-        }
+            fontWeight: 'bold',
+        },
     },
     buttonLabelRaised: {
-        color: "#FFFFFF"
+        color: '#FFFFFF',
     },
     buttonLabelFlat: {
         ios: {
-            color: navy03
+            color: navy03,
         },
         android: {
-            color: navy03
-        }
-    }
-});
+            color: navy03,
+        },
+    },
+})

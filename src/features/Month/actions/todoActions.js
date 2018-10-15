@@ -1,27 +1,27 @@
-import * as actions from './actionTypes';
-import _ from 'lodash';
+import _ from 'lodash'
+import * as actions from './actionTypes'
 
 export function addTodo(name, completed) {
-  return {
-    type: actions.ADD,
-    todo: {
-      id: _.uniqueId('todo_'),
-      name: name,
-      completed: completed === true
+    return {
+        type: actions.ADD,
+        todo: {
+            id: _.uniqueId('todo_'),
+            name,
+            completed: completed === true,
+        },
     }
-  };
 }
 
 export function completeTodo(id) {
-  return {
-    type: actions.COMPLETE,
-    id: id
-  };
+    return {
+        type: actions.COMPLETE,
+        id,
+    }
 }
 
 export function incompleteTodo(id) {
-  return {
-    type: actions.INCOMPLETE,
-    id: id
-  };
+    return {
+        type: actions.INCOMPLETE,
+        id,
+    }
 }

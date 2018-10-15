@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
-import { gray10 } from '../../../../styles/colors.js'
+import { gray10 } from '../../../../styles/colors'
+
 export default StyleSheet.create({
     row: {
         borderWidth: 1,
@@ -8,5 +9,5 @@ export default StyleSheet.create({
         flexDirection: 'row',
         height: 45,
         marginVertical: 2,
-    }
+    },
 })

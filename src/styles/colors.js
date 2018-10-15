@@ -117,7 +117,7 @@ export const gray11 = '#eee'
 export const gray12 = '#f6f6f6'
 export const gray13 = '#fafafa'
 
-//Social media colors
+// Social media colors
 export const facebook = '#3b5998'
 export const facebookHover = '#4c70ba'
 export const gplus = '#ea756b'

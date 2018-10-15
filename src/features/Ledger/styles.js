@@ -6,12 +6,11 @@ export default StyleSheet.create({
         display: 'flex',
         marginTop: 15,
     },
-    ledgerEntries: {
-    },
+    ledgerEntries: {},
     ledger: {
-        flex: 1, 
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         margin: 15,
-    }
+    },
 })
