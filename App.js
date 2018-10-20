@@ -5,29 +5,27 @@ import store from './src/store'
 import Navigation from './src/navigation'
 
 const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
-  }
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#3498db',
+        accent: '#f1c40f',
+    },
 }
 
 class App extends React.Component {
-  static router = Navigation.router;
+    static router = Navigation.router
 
-  render() {
-    return (
-      <Provider store={store}>
-        <PaperProvider theme={theme}>
-          <Navigation
-            navigation={ this.props.navigation }
-          />
-        </PaperProvider>
-      </Provider>
-    )
-  }
+    render() {
+        return (
+            <Provider store={store}>
+                <PaperProvider theme={theme}>
+                    <Navigation navigation={this.props.navigation} />
+                </PaperProvider>
+            </Provider>
+        )
+    }
 }
 
 export default App

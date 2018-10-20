@@ -3,13 +3,11 @@ import { Alert, StyleSheet, View, Modal } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as todoActions from '../actions/todoActions'
-import * as visibilityActions from '../actions/visibilityActions'
 import * as addModalVisibilityActions from '../actions/addModalVisibilityActions'
 import { VisibilityFilters } from '../actions/actionTypes'
-import AddButton from '../components/add-button'
-import TodoList from '../components/todo-list'
+import NewEntryButton from '../components/NewEntryButton'
+import EntryList from '../components/EntryList'
 import AddTodo from '../components/add-todo'
-import Filters from '../components/filters'
 
 import store from '../../../store'
 
@@ -29,7 +27,7 @@ import store from '../../../store'
     filter: state.filter,
     addModalVisible: state.addModal.visible,
 }))
-class TodoApp extends React.Component {
+class LedgerContainer extends React.Component {
     handleCloseModal = () => {
         Alert.alert(
             'Back Button Pressed',
@@ -49,8 +47,8 @@ class TodoApp extends React.Component {
         const { todos, filter, dispatch, addModalVisible } = this.props
         return (
             <View style={styles.container}>
-                <AddButton {...bindActionCreators(addModalVisibilityActions, dispatch)} />
-                <TodoList
+                <NewEntryButton {...bindActionCreators(addModalVisibilityActions, dispatch)} />
+                <EntryList
                     activeFilter={filter}
                     todos={todos}
                     {...bindActionCreators(todoActions, dispatch)}
@@ -97,4 +95,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default TodoApp
+export default LedgerContainer

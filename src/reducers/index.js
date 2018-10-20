@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 
-import todoReducer from '../screens/Month/reducers/todo'
-import filterReducer from '../screens/Month/reducers/filters'
-import addModalReducer from '../screens/Month/reducers/add-modal'
+import todoReducer from '../screens/Ledger/reducers/todo'
+import filterReducer from '../screens/Ledger/reducers/filters'
+import addModalReducer from '../screens/Ledger/reducers/add-modal'
 
 const rootReducer = combineReducers({
     todos: todoReducer,

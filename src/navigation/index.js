@@ -4,14 +4,13 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from 'react-navigation'
 import { View, Text } from 'react-native'
-// import Ledger from '../../src/screens/Ledger'
-import Month from '../screens/Month/containers/app'
+import Ledger from '../screens/Ledger'
 
-class LedgerScreen extends React.Component {
+class MonthScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Ledger!</Text>
+                <Text>Month!</Text>
             </View>
         )
     }
@@ -39,8 +38,8 @@ class AnalysisScreen extends React.Component {
 
 const Navigation = createMaterialTopTabNavigator(
     {
-        MONTH: Month,
-        LEDGER: LedgerScreen,
+        LEDGER: Ledger,
+        MONTH: MonthScreen,
         ACCOUNTS: AccountsScreen,
         ANALYSIS: AnalysisScreen,
     },

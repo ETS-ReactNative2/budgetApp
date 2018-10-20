@@ -4,7 +4,7 @@ import CompleteToggle from './complete-toggle'
 import AddTodoRow from './add-todo-row'
 import { VisibilityFilters } from '../actions/actionTypes'
 
-class TodoList extends React.Component {
+class EntryList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -63,7 +63,9 @@ class TodoList extends React.Component {
                         onChecked={() => completeTodo(todo.id)}
                         onUnchecked={() => incompleteTodo(todo.id)}
                     />
-                    <Text style={styles.text}>{todo.name}</Text>
+                    <Text style={styles.dateText}>9/11</Text>
+                    <Text style={styles.descriptionText}>{todo.name}</Text>
+                    <Text style={styles.amountText}>$40.13</Text>
                 </View>
             </TouchableHighlight>
         )
@@ -95,15 +97,26 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         paddingLeft: 20,
         paddingRight: 20,
+        justifyContent: 'center',
     },
     templateRow: {
         paddingLeft: 30,
     },
-    text: {
+    amountText: {
+        fontSize: 16,
+        textAlign: 'right',
+        width: 80,
+    },
+    dateText: {
+        fontSize: 16,
+        paddingLeft: 15,
+        width: 60,
+    },
+    descriptionText: {
         flex: 1,
         fontSize: 16,
-        marginLeft: 10,
+        paddingLeft: 10,
     },
 })
 
-export default TodoList
+export default EntryList
