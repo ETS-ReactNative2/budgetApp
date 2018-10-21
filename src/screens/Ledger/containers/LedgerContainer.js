@@ -3,7 +3,7 @@ import { Alert, StyleSheet, View, Modal } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as todoActions from '../actions/todoActions'
-import * as addModalVisibilityActions from '../actions/addModalVisibilityActions'
+import * as ledgerModalVisibilityActions from '../actions/ledgerModalVisibilityActions'
 import { VisibilityFilters } from '../actions/actionTypes'
 import NewEntryButton from '../components/NewEntryButton'
 import EntryList from '../components/EntryList'
@@ -25,7 +25,7 @@ import store from '../../../store'
         return true
     }),
     filter: state.filter,
-    addModalVisible: state.addModal.visible,
+    ledgerModalVisible: state.addModal.visible,
 }))
 class LedgerContainer extends React.Component {
     handleCloseModal = () => {
@@ -36,7 +36,7 @@ class LedgerContainer extends React.Component {
                 { text: 'Cancel', onPress: () => {}, style: 'cancel' },
                 {
                     text: 'OK',
-                    onPress: () => store.dispatch(addModalVisibilityActions.hideModal()),
+                    onPress: () => store.dispatch(ledgerModalVisibilityActions.hideModal()),
                 },
             ],
             { cancelable: false },
@@ -44,10 +44,10 @@ class LedgerContainer extends React.Component {
     }
 
     render() {
-        const { todos, filter, dispatch, addModalVisible } = this.props
+        const { todos, filter, dispatch, ledgerModalVisible } = this.props
         return (
             <View style={styles.container}>
-                <NewEntryButton {...bindActionCreators(addModalVisibilityActions, dispatch)} />
+                <NewEntryButton {...bindActionCreators(ledgerModalVisibilityActions, dispatch)} />
                 <EntryList
                     activeFilter={filter}
                     todos={todos}
@@ -62,12 +62,12 @@ class LedgerContainer extends React.Component {
                 <Modal
                     animationType="slide"
                     transparent={false}
-                    visible={addModalVisible}
+                    visible={ledgerModalVisible}
                     onRequestClose={this.handleCloseModal}
                 >
                     <AddTodo
                         {...bindActionCreators(todoActions, dispatch)}
-                        {...bindActionCreators(addModalVisibilityActions, dispatch)}
+                        {...bindActionCreators(ledgerModalVisibilityActions, dispatch)}
                     />
                 </Modal>
             </View>
