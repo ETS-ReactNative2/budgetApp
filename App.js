@@ -6,7 +6,7 @@ import Navigation from './src/navigation'
 
 const theme = {
     ...DefaultTheme,
-    roundness: 2,
+    roundness: 0,
     colors: {
         ...DefaultTheme.colors,
         // primary: '#3498db',

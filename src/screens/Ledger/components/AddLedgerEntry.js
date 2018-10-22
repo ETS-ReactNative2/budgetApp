@@ -17,8 +17,8 @@ class AddLedgerEntry extends React.Component {
         this.state = {
             amount: null,
             category: 'uncategorized',
-            date: getDate().slice(5),
-            description: null,
+            date: getDate(),
+            description: '',
             moneySource: 'capitalOneCredit',
             moneyDestination: 'expense',
         }
@@ -38,7 +38,12 @@ class AddLedgerEntry extends React.Component {
 
     addLedgerEntry = () => {
         this.props.addLedgerEntry(
+            this.state.amount,
+            this.state.category,
+            this.state.date,
             this.state.description,
+            this.state.moneyDestination,
+            this.state.moneySource,
             true,
             // amount: this.packageAmount(),
         )
@@ -46,15 +51,16 @@ class AddLedgerEntry extends React.Component {
         this.setState({
             amount: null,
             category: 'uncategorized',
-            date: getDate().slice(5),
+            date: getDate(),
             description: null,
-            moneySource: 'capitalOneCredit',
             moneyDestination: 'expense',
+            moneySource: 'capitalOneCredit',
         })
     }
 
     render() {
         const { hideModal } = this.props
+        const displayDate = this.state.date.slice(5)
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>
@@ -67,7 +73,7 @@ class AddLedgerEntry extends React.Component {
                 <View style={styles.content}>
                     <DatePicker
                         style={styles.datePicker}
-                        date={this.state.date}
+                        date={displayDate}
                         mode="date"
                         placeholder="date"
                         format="M/D"
@@ -139,7 +145,6 @@ class AddLedgerEntry extends React.Component {
                     <View style={styles.categoryContainer}>
                         <Text style={styles.fromToText}>Category: </Text>
                         <Picker
-                            itemStyle={styles.pickerItem}
                             prompt="Category"
                             style={styles.category}
                             selectedValue={this.state.category}
@@ -212,7 +217,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 13,
+        marginBottom: 14,
         paddingLeft: 10,
     },
     container: {
@@ -251,7 +256,7 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     pickerItem: {
-        marginLeft: 10,
+        color: 'red',
     },
     to: {
         color: 'green',
