@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Button, Switch, Text, TextInput } from 'react-native-paper'
 
-class AddTodo extends React.Component {
+class AddLedgerEntry extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -20,8 +20,8 @@ class AddTodo extends React.Component {
         this.setState({ description: descriptionText })
     }
 
-    addTodo = () => {
-        this.props.addTodo(
+    addLedgerEntry = () => {
+        this.props.addLedgerEntry(
             this.state.description,
             true,
             // amount: this.packageAmount(),
@@ -45,7 +45,7 @@ class AddTodo extends React.Component {
             <View style={styles.container}>
                 <View style={styles.toolbar}>
                     <Text style={styles.toolbarButton} />
-                    <Text style={styles.toolbarTitle}>Add Todo</Text>
+                    <Text style={styles.toolbarTitle}>Add Ledger Entry</Text>
                     <TouchableOpacity style={styles.toolbarButton} onPress={hideModal}>
                         <Text style={styles.toolbarText}>Cancel</Text>
                     </TouchableOpacity>
@@ -76,7 +76,7 @@ class AddTodo extends React.Component {
                             value={this.state.amount}
                         />
                     </View>
-                    <Button onPress={this.addTodo}>Add Expense</Button>
+                    <Button onPress={this.addLedgerEntry}>Add Expense</Button>
                 </View>
             </View>
         )
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AddTodo
+export default AddLedgerEntry

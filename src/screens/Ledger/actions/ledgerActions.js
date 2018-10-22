@@ -1,12 +1,12 @@
 import _ from 'lodash'
 import * as actions from './actionTypes'
 
-export function addTodo(name, completed) {
+export function addLedgerEntry(description, completed) {
     return {
         type: actions.ADD,
-        todo: {
-            id: _.uniqueId('todo_'),
-            name,
+        entry: {
+            id: _.uniqueId('entry_'),
+            description,
             completed: completed === true,
         },
     }

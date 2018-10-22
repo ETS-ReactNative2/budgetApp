@@ -2,12 +2,12 @@
 // import { Alert, StyleSheet, View, Modal } from 'react-native'
 // import { bindActionCreators } from 'redux'
 // import { connect } from 'react-redux'
-// import * as accountActions from '../actions/accountActions'
+// import * as accountsActions from '../actions/accountsActions'
 // import * as accountsModalVisibilityActions from '../actions/accountsModalVisibilityActions'
 // import { VisibilityFilters } from '../actions/actionTypes'
 // import NewEntryButton from '../components/NewEntryButton'
 // import EntryList from '../components/EntryList'
-// import AddTodo from '../components/add-todo'
+// import AddAccount from '../components/AddAccount'
 
 // import store from '../../../store'
 
@@ -25,9 +25,9 @@
 //         return true
 //     }),
 //     filter: state.filter,
-//     accountsModalVisible: state.addModal.visible,
+//     accountsModalVisible: state.accountsModal.visible,
 // }))
-// class LedgerContainer extends React.Component {
+// class AccountsContainer extends React.Component {
 //     handleCloseModal = () => {
 //         Alert.alert(
 //             'Back Button Pressed',
@@ -51,7 +51,7 @@
 //                 <EntryList
 //                     activeFilter={filter}
 //                     todos={todos}
-//                     {...bindActionCreators(todoActions, dispatch)}
+//                     {...bindActionCreators(accountsActions, dispatch)}
 //                 />
 //                 {
 //                     // <Filters
@@ -65,8 +65,8 @@
 //                     visible={accountsModalVisible}
 //                     onRequestClose={this.handleCloseModal}
 //                 >
-//                     <AddTodo
-//                         {...bindActionCreators(todoActions, dispatch)}
+//                     <AddAccount
+//                         {...bindActionCreators(accountsActions, dispatch)}
 //                         {...bindActionCreators(accountsModalVisibilityActions, dispatch)}
 //                     />
 //                 </Modal>
@@ -76,9 +76,9 @@
 // }
 
 // /*
-// <AddTodo
+// <AddAccount
 // style={styles.add}
-// {...bindActionCreators(todoActions, dispatch)} />
+// {...bindActionCreators(accountsActions, dispatch)} />
 //  */
 
 // const styles = StyleSheet.create({
@@ -95,4 +95,4 @@
 //     },
 // })
 
-// export default LedgerContainer
+// export default AccountsContainer

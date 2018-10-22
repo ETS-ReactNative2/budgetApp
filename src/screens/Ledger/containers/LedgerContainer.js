@@ -2,30 +2,32 @@ import React from 'react'
 import { Alert, StyleSheet, View, Modal } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as todoActions from '../actions/todoActions'
+import * as ledgerActions from '../actions/ledgerActions'
 import * as ledgerModalVisibilityActions from '../actions/ledgerModalVisibilityActions'
 import { VisibilityFilters } from '../actions/actionTypes'
 import NewEntryButton from '../components/NewEntryButton'
 import EntryList from '../components/EntryList'
-import AddTodo from '../components/add-todo'
+import AddLedgerEntry from '../components/AddLedgerEntry'
 
 import store from '../../../store'
 
+// store.dispatch(addLedgerEntry)
+
 @connect(state => ({
-    todos: state.todos.filter(todo => {
+    ledgerEntries: state.ledgerEntries.filter(entry => {
         if (state.filter === VisibilityFilters.ALL) {
             return true
         }
         if (state.filter === VisibilityFilters.COMPLETED) {
-            return todo.completed
+            return entry.completed
         }
         if (state.filter === VisibilityFilters.INCOMPLETE) {
-            return !todo.completed
+            return !entry.completed
         }
         return true
     }),
     filter: state.filter,
-    ledgerModalVisible: state.addModal.visible,
+    ledgerModalVisible: state.ledgerModal.visible,
 }))
 class LedgerContainer extends React.Component {
     handleCloseModal = () => {
@@ -44,15 +46,17 @@ class LedgerContainer extends React.Component {
     }
 
     render() {
-        const { todos, filter, dispatch, ledgerModalVisible } = this.props
+        const { ledgerEntries, filter, dispatch, ledgerModalVisible } = this.props
         return (
             <View style={styles.container}>
                 <NewEntryButton {...bindActionCreators(ledgerModalVisibilityActions, dispatch)} />
-                <EntryList
-                    activeFilter={filter}
-                    todos={todos}
-                    {...bindActionCreators(todoActions, dispatch)}
-                />
+                {
+                    <EntryList
+                        activeFilter={filter}
+                        ledgerEntries={ledgerEntries}
+                        {...bindActionCreators(ledgerActions, dispatch)}
+                    />
+                }
                 {
                     // <Filters
                     //     activeFilter={filter}
@@ -65,8 +69,8 @@ class LedgerContainer extends React.Component {
                     visible={ledgerModalVisible}
                     onRequestClose={this.handleCloseModal}
                 >
-                    <AddTodo
-                        {...bindActionCreators(todoActions, dispatch)}
+                    <AddLedgerEntry
+                        {...bindActionCreators(ledgerActions, dispatch)}
                         {...bindActionCreators(ledgerModalVisibilityActions, dispatch)}
                     />
                 </Modal>
@@ -76,9 +80,9 @@ class LedgerContainer extends React.Component {
 }
 
 /*
-<AddTodo
+<AddLedgerEntry
 style={styles.add}
-{...bindActionCreators(todoActions, dispatch)} />
+{...bindActionCreators(ledgerActions, dispatch)} />
  */
 
 const styles = StyleSheet.create({

@@ -1,3 +1,5 @@
+// Unused code currently. Left here for reference.
+
 import React from 'react'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { VisibilityFilters } from '../actions/actionTypes'

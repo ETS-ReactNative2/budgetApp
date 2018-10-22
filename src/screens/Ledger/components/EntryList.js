@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableHighlight, StyleSheet, View, Text, ListView } from 'react-native'
-import CompleteToggle from './complete-toggle'
-import AddTodoRow from './add-todo-row'
+import CompleteToggle from './CompleteToggle'
+import NewEntryRowButton from './NewEntryRowButton'
 import { VisibilityFilters } from '../actions/actionTypes'
 
 class EntryList extends React.Component {
@@ -12,70 +12,72 @@ class EntryList extends React.Component {
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
         }
-        if (this.props.todos) {
+        if (this.props.ledgerEntries) {
             this.state.dataSource = this.state.dataSource.cloneWithRows(
-                this.getTodosWithTemplate(this.props.todos),
+                this.getLedgerEntriesWithTemplate(this.props.ledgerEntries),
             )
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.todos !== this.props.todos) {
+        if (nextProps.ledgerEntries !== this.props.ledgerEntries) {
             this.setState(prevState => ({
                 dataSource: prevState.dataSource.cloneWithRows(
-                    this.getTodosWithTemplate(nextProps.todos),
+                    this.getLedgerEntriesWithTemplate(nextProps.ledgerEntries),
                 ),
             }))
         }
     }
 
     // eslint-disable-next-line class-methods-use-this
-    getTodosWithTemplate(todos) {
-        return todos.concat([{ template: true }])
+    getLedgerEntriesWithTemplate(ledgerEntries) {
+        return ledgerEntries.concat([{ template: true }])
     }
 
-    renderRow = todo => {
-        if (todo.template) {
-            return this.renderTodoItemTemplate()
+    renderRow = entry => {
+        if (entry.template) {
+            return this.renderLedgerEntryTemplate()
         }
-        return this.renderTodoItem(todo)
+        return this.renderLedgerEntry(entry)
     }
 
-    renderTodoItem(todo) {
+    renderLedgerEntry(entry) {
         const { completeTodo, incompleteTodo } = this.props
         return (
             <TouchableHighlight
                 underlayColor="#e4f2d9"
-                key={todo.id}
+                key={entry.id}
                 style={styles.row}
                 onPress={() => {
-                    if (todo.completed) {
-                        incompleteTodo(todo.id)
+                    if (entry.completed) {
+                        incompleteTodo(entry.id)
                     } else {
-                        completeTodo(todo.id)
+                        completeTodo(entry.id)
                     }
                 }}
             >
                 <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}>
                     <CompleteToggle
                         style={styles.toggle}
-                        checked={todo.completed}
-                        onChecked={() => completeTodo(todo.id)}
-                        onUnchecked={() => incompleteTodo(todo.id)}
+                        checked={entry.completed}
+                        onChecked={() => completeTodo(entry.id)}
+                        onUnchecked={() => incompleteTodo(entry.id)}
                     />
                     <Text style={styles.dateText}>9/11</Text>
-                    <Text style={styles.descriptionText}>{todo.name}</Text>
+                    <Text style={styles.descriptionText}>{entry.description}</Text>
                     <Text style={styles.amountText}>$40.13</Text>
                 </View>
             </TouchableHighlight>
         )
     }
 
-    renderTodoItemTemplate() {
-        const { addTodo, activeFilter } = this.props
+    renderLedgerEntryTemplate() {
+        const { addLedgerEntry, activeFilter } = this.props
         return (
-            <AddTodoRow
-                addTodo={name => addTodo(name, activeFilter === VisibilityFilters.COMPLETED)}
+            <NewEntryRowButton
+                addLedgerEntry={description =>
+                    addLedgerEntry(description, activeFilter === VisibilityFilters.COMPLETED)
+                }
             />
         )
     }

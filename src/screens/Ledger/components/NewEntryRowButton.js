@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 
-class AddTodoRow extends React.Component {
+class NewEntryRowButton extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -11,7 +11,7 @@ class AddTodoRow extends React.Component {
     }
 
     onSubmit = () => {
-        this.props.addTodo(this.state.value)
+        this.props.addLedgerEntry(this.state.value, true)
     }
 
     onText = text => {
@@ -48,7 +48,7 @@ class AddTodoRow extends React.Component {
                     onSubmitEditing={this.onSubmit}
                     onFocus={this.onFocused}
                     onBlur={this.onBlurred}
-                    placeholder="Add a new todo..."
+                    placeholder="Add a new transaction..."
                 />
                 {this.renderBorder()}
             </View>
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AddTodoRow
+export default NewEntryRowButton

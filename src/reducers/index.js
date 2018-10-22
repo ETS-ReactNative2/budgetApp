@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux'
 
-import todoReducer from '../screens/Ledger/reducers/todo'
+import entryReducer from '../screens/Ledger/reducers/entry'
 import filterReducer from '../screens/Ledger/reducers/filters'
-import addModalReducer from '../screens/Ledger/reducers/add-modal'
+import ledgerModalReducer from '../screens/Ledger/reducers/ledgerModal'
 
 const rootReducer = combineReducers({
-    todos: todoReducer,
+    ledgerEntries: entryReducer,
     filter: filterReducer,
-    addModal: addModalReducer,
+    ledgerModal: ledgerModalReducer,
 })
 
 export default rootReducer
