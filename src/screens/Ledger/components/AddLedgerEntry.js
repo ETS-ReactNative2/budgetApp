@@ -45,7 +45,6 @@ class AddLedgerEntry extends React.Component {
             this.state.moneyDestination,
             this.state.moneySource,
             true,
-            // amount: this.packageAmount(),
         )
         this.props.hideModal()
         this.setState({
