@@ -40,11 +40,13 @@ class EntryList extends React.Component {
 
     render() {
         return (
-            <FlatList
-                data={this.props.ledgerEntries}
-                keyExtractor={item => item.id}
-                renderItem={this.renderItem}
-            />
+            <View style={styles.container}>
+                <FlatList
+                    data={this.props.ledgerEntries}
+                    keyExtractor={item => item.id}
+                    renderItem={this.renderItem}
+                />
+            </View>
         )
     }
 }
@@ -52,13 +54,12 @@ class EntryList extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 10,
     },
     row: {
         flexDirection: 'row',
-        paddingTop: 20,
-        paddingBottom: 20,
+        paddingTop: 8,
+        paddingBottom: 8,
         paddingLeft: 20,
         paddingRight: 20,
         justifyContent: 'center',
@@ -67,18 +68,18 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
     },
     amountText: {
-        fontSize: 16,
+        fontSize: 15,
         textAlign: 'right',
         width: 80,
     },
     dateText: {
-        fontSize: 16,
+        fontSize: 15,
         paddingLeft: 15,
         width: 60,
     },
     descriptionText: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 15,
         paddingLeft: 10,
     },
 })

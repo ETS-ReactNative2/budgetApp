@@ -6,7 +6,7 @@ export default function ledgerReducer(ledgerEntries = [], action = {}) {
 
     switch (action.type) {
         case actions.ADD:
-            return [...ledgerEntries, action.entry]
+            return [action.entry, ...ledgerEntries]
 
         case actions.COMPLETE:
             if (index === -1) {

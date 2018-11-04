@@ -182,6 +182,7 @@ class AddLedgerEntry extends React.Component {
                     <Button mode="contained" dark onPress={this.addLedgerEntry}>
                         Add Ledger Entry
                     </Button>
+                    <View style={{ height: 100 }} />
                 </View>
             </View>
         )
