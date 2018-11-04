@@ -11,7 +11,19 @@ import AddLedgerEntry from '../components/AddLedgerEntry'
 
 import store from '../../../store'
 
-// store.dispatch(addLedgerEntry)
+// store.dispatch(
+//     ledgerActions.addLedgerEntry(
+//         {
+//             amount: 13.45,
+//             category: 'Uncategorized',
+//             date: '09/15',
+//             description: 'goo',
+//             moneyDestination: 'Cash',
+//             moneySource: 'Expense',
+//         },
+//         true,
+//     ),
+// )
 
 @connect(state => ({
     ledgerEntries: state.ledgerEntries.filter(entry => {

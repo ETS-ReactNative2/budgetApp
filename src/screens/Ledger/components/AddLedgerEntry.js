@@ -38,12 +38,14 @@ class AddLedgerEntry extends React.Component {
 
     addLedgerEntry = () => {
         this.props.addLedgerEntry(
-            this.state.amount,
-            this.state.category,
-            this.state.date,
-            this.state.description,
-            this.state.moneyDestination,
-            this.state.moneySource,
+            {
+                amount: this.state.amount,
+                category: this.state.category,
+                date: this.state.date,
+                description: this.state.description,
+                moneyDestination: this.state.moneyDestination,
+                moneySource: this.state.moneySource,
+            },
             true,
         )
         this.props.hideModal()
