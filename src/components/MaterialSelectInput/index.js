@@ -11,7 +11,6 @@ export default class MaterialTextInput extends React.PureComponent {
     render() {
         return (
             <View>
-                {' '}
                 <Picker
                     prompt="Money comes from:"
                     selectedValue={this.state.moneySource}

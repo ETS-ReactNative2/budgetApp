@@ -1,7 +1,7 @@
 import React from 'react'
 import { Picker, StyleSheet, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
-import { Button, Text } from 'react-native-paper'
+import { Button, Text, TextInput } from 'react-native-paper'
 import { compose } from 'redux'
 import { Formik, Field } from 'formik'
 import * as Yup from 'yup'
@@ -18,7 +18,7 @@ const FormTextInput = compose(
 const Form = withNextInputAutoFocusForm(View)
 
 const validationSchema = Yup.object().shape({
-    amount: Yup.number().required('Please enter an amount'),
+    amount: Yup.number('Must be a number').required('Please enter an amount'),
 })
 
 const getDate = () => {
@@ -159,6 +159,42 @@ class AddLedgerEntry extends React.Component {
                             <Picker.Item label="Other" value="other" />
                         </Picker>
                     </View>
+                    <View style={styles.categoryContainer}>
+                        <Text style={styles.fromToText}>Category: </Text>
+                        <Picker
+                            prompt="Category"
+                            style={styles.category}
+                            selectedValue={this.state.category}
+                            onValueChange={itemValue => this.setState({ category: itemValue })}
+                        >
+                            <Picker.Item label="Babysitting" value="babysitting" />
+                            <Picker.Item label="Car Costs" value="carCosts" />
+                            <Picker.Item label="Cell Phone" value="cellPhone" />
+                            <Picker.Item label="Clothes" value="clothes" />
+                            <Picker.Item label="Eating Out" value="eatingOut" />
+                            <Picker.Item label="Electricity" value="electricity" />
+                            <Picker.Item label="Entertainment" value="entertainment" />
+                            <Picker.Item label="Fixed Bills" value="fixedBills" />
+                            <Picker.Item label="Food Groceries" value="foodGroceries" />
+                            <Picker.Item label="Gas" value="gas" />
+                            <Picker.Item label="Gifts" value="gifts" />
+                            <Picker.Item label="Heating gas" value="heatingGas" />
+                            <Picker.Item label="Household Goods" value="householdGoods" />
+                            <Picker.Item label="Kids Things" value="kidsThings" />
+                            <Picker.Item label="Loan" value="loan" />
+                            <Picker.Item label="Mortgage" value="mortgage" />
+                            <Picker.Item label="Non-Essential Items" value="nonEssentialItems" />
+                            <Picker.Item label="OSLA" value="osla" />
+                            <Picker.Item label="Pet Costs" value="petCosts" />
+                            <Picker.Item label="Preschool" value="preschool" />
+                            <Picker.Item label="Retirement" value="retirement" />
+                            <Picker.Item label="Savings" value="savings" />
+                            <Picker.Item label="Small Misc Expenses" value="smallMiscExpenses" />
+                            <Picker.Item label="Travel" value="travel" />
+                            <Picker.Item label="Uncategorized" value="uncategorized" />
+                            <Picker.Item label="Water Bill" value="waterBill" />
+                        </Picker>
+                    </View>
                     <Formik
                         onSubmit={values => {
                             console.log(values)
@@ -167,14 +203,34 @@ class AddLedgerEntry extends React.Component {
                         validationSchema={validationSchema}
                         render={props => (
                             <Form>
-                                <FormTextInput label="Email" name="email" type="email" />
-                                <FormTextInput label="Password" name="password" type="password" />
-                                <FormTextInput label="First Name" name="firstName" type="name" />
-                                <FormTextInput label="Last Name" name="lastName" type="name" />
-                                <Button mode="contained" dark onPress={props.handleSubmit}>
-                                    Add Ledger Entry
-                                </Button>
-                                <Button onPress={props.handleSubmit} title="SUBMIT" />
+                                <TextInput
+                                    label="Description"
+                                    mode="flat"
+                                    name="description"
+                                    onChangeText={this.handleOnDescriptionChange}
+                                    style={styles.descriptionInput}
+                                    value={this.state.description}
+                                />
+                                <View style={styles.buttonRow}>
+                                    <View style={styles.amountInputContainer}>
+                                        <TextInput
+                                            keyboardType="numeric"
+                                            label="Amount"
+                                            mode="flat"
+                                            name="amount"
+                                            onChangeText={this.handleOnAmountChange}
+                                            placeholder="$"
+                                            style={styles.amountInput}
+                                            type="amount"
+                                            value={this.state.amount}
+                                        />
+                                    </View>
+                                    <View style={styles.buttonContainer}>
+                                        <Button mode="contained" dark onPress={props.handleSubmit}>
+                                            Add Entry
+                                        </Button>
+                                    </View>
+                                </View>
                             </Form>
                         )}
                     />
@@ -186,35 +242,50 @@ class AddLedgerEntry extends React.Component {
 
 const styles = StyleSheet.create({
     amountInput: {
-        flex: 12,
-        marginBottom: 10,
+        flex: 1,
+        marginRight: 10,
     },
     amountInputContainer: {
-        display: 'flex',
+        alignItems: 'flex-start',
+        flex: 2,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        marginBottom: 7,
+        justifyContent: 'flex-start',
     },
     amountInputDollarSign: {
-        fontSize: 24,
-        paddingRight: 10,
+        alignSelf: 'flex-end',
+        color: '#1976D2',
+        fontSize: 20,
+        paddingBottom: 5,
+        width: 20,
+    },
+    button: {
         flex: 1,
+        alignSelf: 'stretch',
+        elevation: 2,
+        borderRadius: 6,
+    },
+    buttonContainer: {
+        flex: 1,
+        alignItems: 'stretch',
+    },
+    buttonRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     category: {
-        color: 'blue',
         flex: 1,
         marginVertical: 5,
     },
     categoryContainer: {
         alignItems: 'center',
-        borderColor: 'gray',
-        borderRadius: 2,
+        borderColor: '#1976D2',
+        borderRadius: 6,
         borderWidth: 1,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 14,
+        marginBottom: 10,
         paddingLeft: 10,
     },
     container: {
@@ -222,7 +293,8 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        marginTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
     },
@@ -236,12 +308,12 @@ const styles = StyleSheet.create({
     from: {
         color: 'red',
         flex: 1,
-        marginVertical: 5,
+        marginVertical: 0,
     },
     fromToContainer: {
         alignItems: 'center',
-        borderColor: 'gray',
-        borderRadius: 2,
+        borderColor: '#1976D2',
+        borderRadius: 6,
         borderWidth: 1,
         display: 'flex',
         flexDirection: 'row',
@@ -250,6 +322,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
     },
     fromToText: {
+        color: '#1976D2',
         padding: 5,
     },
     pickerItem: {

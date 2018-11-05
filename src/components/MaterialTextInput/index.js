@@ -18,7 +18,7 @@ export default class MaterialTextInput extends React.PureComponent {
             <View>
                 <TextField
                     ref={input => (this.input = input)}
-                    labelHeight={12}
+                    labelHeight={16}
                     baseColor={displayError ? errorColor : '#1976D2'}
                     tintColor="#2196F3"
                     textColor="#212121"
