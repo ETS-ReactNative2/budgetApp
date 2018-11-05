@@ -1,14 +1,32 @@
 import React from 'react'
 import { Picker, StyleSheet, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
-import { Button, Text, TextInput } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
+import { compose } from 'redux'
+import { Formik, Field } from 'formik'
+import * as Yup from 'yup'
+import makeInputGreatAgain, {
+    withNextInputAutoFocusForm,
+    withNextInputAutoFocusInput,
+} from 'react-native-formik'
+import MaterialTextInput from '../../../components/MaterialTextInput'
+
+const FormTextInput = compose(
+    makeInputGreatAgain,
+    withNextInputAutoFocusInput,
+)(MaterialTextInput)
+const Form = withNextInputAutoFocusForm(View)
+
+const validationSchema = Yup.object().shape({
+    amount: Yup.number().required('Please enter an amount'),
+})
 
 const getDate = () => {
     const today = new Date()
     const dd = today.getDate()
     const mm = today.getMonth() + 1 // January is 0!
     const yyyy = today.getFullYear()
-    return `${yyyy}-${mm}/${dd}`
+    return `${mm}/${dd} ${yyyy}`
 }
 
 class AddLedgerEntry extends React.Component {
@@ -29,6 +47,7 @@ class AddLedgerEntry extends React.Component {
     }
 
     handleOnDateChange = date => {
+        console.warn(date)
         this.setState({ date })
     }
 
@@ -61,32 +80,47 @@ class AddLedgerEntry extends React.Component {
 
     render() {
         const { hideModal } = this.props
-        const displayDate = this.state.date.slice(5)
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>
-                    <Text style={styles.toolbarButton} />
+                    <View style={styles.toolbarButton}>
+                        <DatePicker
+                            style={styles.datePicker}
+                            date={this.state.date}
+                            mode="date"
+                            placeholder="date"
+                            format="MM/DD YYYY"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateInput: {
+                                    flex: 1,
+                                    height: 50,
+                                    borderWidth: 0,
+                                    borderColor: '#aaa',
+                                    alignItems: 'flex-start',
+                                    justifyContent: 'center',
+                                    marginLeft: 15,
+                                },
+                                dateText: {
+                                    color: 'white',
+                                },
+                                dateTouchBody: {
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-start',
+                                },
+                            }}
+                            showIcon
+                            onDateChange={date => this.handleOnDateChange(date)}
+                        />
+                    </View>
                     <Text style={styles.toolbarTitle}>Add Ledger Entry</Text>
                     <TouchableOpacity style={styles.toolbarButton} onPress={hideModal}>
                         <Text style={styles.toolbarText}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.content}>
-                    <DatePicker
-                        style={styles.datePicker}
-                        date={displayDate}
-                        mode="date"
-                        placeholder="date"
-                        format="M/D"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={
-                            {
-                                // ... You can check the source to find the other keys.
-                            }
-                        }
-                        onDateChange={date => this.handleOnDateChange(date)}
-                    />
                     <View style={styles.fromToContainer}>
                         <Text style={styles.fromToText}>From</Text>
                         <Picker
@@ -125,64 +159,25 @@ class AddLedgerEntry extends React.Component {
                             <Picker.Item label="Other" value="other" />
                         </Picker>
                     </View>
-                    <TextInput
-                        mode="outlined"
-                        placeholder="Describe your transaction"
-                        style={styles.descriptionInput}
-                        onChangeText={this.handleOnDescriptionChange}
-                        value={this.state.description}
+                    <Formik
+                        onSubmit={values => {
+                            console.log(values)
+                            // this.addLedgerEntry
+                        }}
+                        validationSchema={validationSchema}
+                        render={props => (
+                            <Form>
+                                <FormTextInput label="Email" name="email" type="email" />
+                                <FormTextInput label="Password" name="password" type="password" />
+                                <FormTextInput label="First Name" name="firstName" type="name" />
+                                <FormTextInput label="Last Name" name="lastName" type="name" />
+                                <Button mode="contained" dark onPress={props.handleSubmit}>
+                                    Add Ledger Entry
+                                </Button>
+                                <Button onPress={props.handleSubmit} title="SUBMIT" />
+                            </Form>
+                        )}
                     />
-                    <View style={styles.amountInputContainer}>
-                        <Text style={styles.amountInputDollarSign}>$</Text>
-                        <TextInput
-                            keyboardType="numeric"
-                            mode="outlined"
-                            placeholder="Amount"
-                            style={styles.amountInput}
-                            onChangeText={this.handleOnAmountChange}
-                            value={this.state.amount}
-                        />
-                    </View>
-                    <View style={styles.categoryContainer}>
-                        <Text style={styles.fromToText}>Category: </Text>
-                        <Picker
-                            prompt="Category"
-                            style={styles.category}
-                            selectedValue={this.state.category}
-                            onValueChange={itemValue => this.setState({ category: itemValue })}
-                        >
-                            <Picker.Item label="Babysitting" value="babysitting" />
-                            <Picker.Item label="Car Costs" value="carCosts" />
-                            <Picker.Item label="Cell Phone" value="cellPhone" />
-                            <Picker.Item label="Clothes" value="clothes" />
-                            <Picker.Item label="Eating Out" value="eatingOut" />
-                            <Picker.Item label="Electricity" value="electricity" />
-                            <Picker.Item label="Entertainment" value="entertainment" />
-                            <Picker.Item label="Fixed Bills" value="fixedBills" />
-                            <Picker.Item label="Food Groceries" value="foodGroceries" />
-                            <Picker.Item label="Gas" value="gas" />
-                            <Picker.Item label="Gifts" value="gifts" />
-                            <Picker.Item label="Heating gas" value="heatingGas" />
-                            <Picker.Item label="Household Goods" value="householdGoods" />
-                            <Picker.Item label="Kids Things" value="kidsThings" />
-                            <Picker.Item label="Loan" value="loan" />
-                            <Picker.Item label="Mortgage" value="mortgage" />
-                            <Picker.Item label="Non-Essential Items" value="nonEssentialItems" />
-                            <Picker.Item label="OSLA" value="osla" />
-                            <Picker.Item label="Pet Costs" value="petCosts" />
-                            <Picker.Item label="Preschool" value="preschool" />
-                            <Picker.Item label="Retirement" value="retirement" />
-                            <Picker.Item label="Savings" value="savings" />
-                            <Picker.Item label="Small Misc Expenses" value="smallMiscExpenses" />
-                            <Picker.Item label="Travel" value="travel" />
-                            <Picker.Item label="Uncategorized" value="uncategorized" />
-                            <Picker.Item label="Water Bill" value="waterBill" />
-                        </Picker>
-                    </View>
-                    <Button mode="contained" dark onPress={this.addLedgerEntry}>
-                        Add Ledger Entry
-                    </Button>
-                    <View style={{ height: 100 }} />
                 </View>
             </View>
         )
@@ -233,7 +228,7 @@ const styles = StyleSheet.create({
     },
     datePicker: {
         width: 100,
-        marginBottom: 13,
+        borderWidth: 0,
     },
     descriptionInput: {
         marginBottom: 10,
@@ -267,9 +262,9 @@ const styles = StyleSheet.create({
     },
     toolbar: {
         backgroundColor: '#81c04d',
-        paddingTop: 30,
-        paddingBottom: 10,
         flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
     },
     toolbarButton: {
         width: 50,

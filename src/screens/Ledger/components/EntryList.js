@@ -30,7 +30,7 @@ class EntryList extends React.Component {
                         onChecked={() => completeTodo(item.id)}
                         onUnchecked={() => incompleteTodo(item.id)}
                     />
-                    <Text style={styles.dateText}>{item.date.slice(5)}</Text>
+                    <Text style={styles.dateText}>{item.date.substring(0, 5)}</Text>
                     <Text style={styles.descriptionText}>{item.description}</Text>
                     <Text style={styles.amountText}>${item.amount}</Text>
                 </View>
