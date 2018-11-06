@@ -5,16 +5,24 @@ import { Button, Text, TextInput } from 'react-native-paper'
 import { compose } from 'redux'
 import { Formik, Field } from 'formik'
 import * as Yup from 'yup'
-import makeInputGreatAgain, {
+import makeInput, {
+    keyboardModal,
+    withPickerValues,
     withNextInputAutoFocusForm,
     withNextInputAutoFocusInput,
 } from 'react-native-formik'
 import MaterialTextInput from '../../../components/MaterialTextInput'
 
 const FormTextInput = compose(
-    makeInputGreatAgain,
+    makeInput,
     withNextInputAutoFocusInput,
-)(MaterialTextInput)
+)(TextInput)
+
+const FormPicker = compose(
+    makeInput,
+    withPickerValues,
+)(TextInput)
+
 const Form = withNextInputAutoFocusForm(View)
 
 const validationSchema = Yup.object().shape({
@@ -197,13 +205,35 @@ class AddLedgerEntry extends React.Component {
                     </View>
                     <Formik
                         onSubmit={values => {
+                            KeyboardModal.dismiss()
                             console.log(values)
                             // this.addLedgerEntry
                         }}
                         validationSchema={validationSchema}
                         render={props => (
                             <Form>
-                                <TextInput
+                                <View style={styles.fromToContainer}>
+                                    <Text style={styles.fromToText}>From</Text>
+                                    <FormPicker
+                                        name="from"
+                                        values={[
+                                            { label: 'Allegent', value: 'allegent' },
+                                            {
+                                                label: 'Capital One Credit',
+                                                value: 'capitalOneCredit',
+                                            },
+                                            { label: 'Cash', value: 'cash' },
+                                            { label: 'Citizens', value: 'citizens' },
+                                            { label: 'Gift', value: 'gift' },
+                                            { label: 'Library', value: 'library' },
+                                            { label: 'Niche', value: 'niche' },
+                                            { label: 'Sale', value: 'sale' },
+                                            { label: 'Synchrony', value: 'synchrony' },
+                                            { label: 'Other', value: 'other' },
+                                        ]}
+                                    />
+                                </View>
+                                <FormTextInput
                                     label="Description"
                                     mode="flat"
                                     name="description"
@@ -213,7 +243,7 @@ class AddLedgerEntry extends React.Component {
                                 />
                                 <View style={styles.buttonRow}>
                                     <View style={styles.amountInputContainer}>
-                                        <TextInput
+                                        <FormTextInput
                                             keyboardType="numeric"
                                             label="Amount"
                                             mode="flat"
