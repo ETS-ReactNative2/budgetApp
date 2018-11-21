@@ -25,22 +25,6 @@ import store from '../../../store'
 //     ),
 // )
 
-@connect(state => ({
-    ledgerEntries: state.ledgerEntries.filter(entry => {
-        if (state.filter === VisibilityFilters.ALL) {
-            return true
-        }
-        if (state.filter === VisibilityFilters.COMPLETED) {
-            return entry.completed
-        }
-        if (state.filter === VisibilityFilters.INCOMPLETE) {
-            return !entry.completed
-        }
-        return true
-    }),
-    filter: state.filter,
-    ledgerModalVisible: state.ledgerModal.visible,
-}))
 class LedgerContainer extends React.Component {
     handleCloseModal = () => {
         Alert.alert(
@@ -111,4 +95,24 @@ const styles = StyleSheet.create({
     },
 })
 
-export default LedgerContainer
+const mapStateToProps = state => ({
+    ledgerEntries: state.ledgerEntries.filter(entry => {
+        if (state.filter === VisibilityFilters.ALL) {
+            return true
+        }
+        if (state.filter === VisibilityFilters.COMPLETED) {
+            return entry.completed
+        }
+        if (state.filter === VisibilityFilters.INCOMPLETE) {
+            return !entry.completed
+        }
+        return true
+    }),
+    filter: state.filter,
+    ledgerModalVisible: state.ledgerModal.visible,
+})
+
+export default connect(
+    mapStateToProps,
+    null,
+)(LedgerContainer)

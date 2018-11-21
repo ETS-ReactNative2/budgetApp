@@ -1,16 +1,16 @@
 import React from 'react'
 import { Picker, StyleSheet, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
-import { Button, Text, TextInput } from 'react-native-paper'
-import { compose } from 'redux'
-import { Formik, Field } from 'formik'
-import * as Yup from 'yup'
 import makeInput, {
     keyboardModal,
     withPickerValues,
     withNextInputAutoFocusForm,
     withNextInputAutoFocusInput,
 } from 'react-native-formik'
+import { Button, Text, TextInput } from 'react-native-paper'
+import { compose } from 'redux'
+import { Formik, Field } from 'formik'
+import * as Yup from 'yup'
 import MaterialTextInput from '../../../components/MaterialTextInput'
 
 const FormTextInput = compose(
@@ -18,15 +18,13 @@ const FormTextInput = compose(
     withNextInputAutoFocusInput,
 )(TextInput)
 
-const FormPicker = compose(
-    makeInput,
-    withPickerValues,
-)(TextInput)
-
 const Form = withNextInputAutoFocusForm(View)
 
 const validationSchema = Yup.object().shape({
-    amount: Yup.number('Must be a number').required('Please enter an amount'),
+    description: Yup.string().max(100, 'Descriptions must be less than 100 characters'),
+    amount: Yup.number()
+        .typeError('Please enter a number')
+        .required('Please enter an amount'),
 })
 
 const getDate = () => {
@@ -41,53 +39,33 @@ class AddLedgerEntry extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            amount: null,
             category: 'uncategorized',
             date: getDate(),
-            description: '',
             moneySource: 'capitalOneCredit',
             moneyDestination: 'expense',
         }
     }
 
-    handleOnAmountChange = amount => {
-        this.setState({ amount })
-    }
-
     handleOnDateChange = date => {
-        console.warn(date)
         this.setState({ date })
     }
 
-    handleOnDescriptionChange = descriptionText => {
-        this.setState({ description: descriptionText })
-    }
-
-    addLedgerEntry = () => {
+    addLedgerEntry = values => {
         this.props.addLedgerEntry(
             {
-                amount: this.state.amount,
+                amount: values.amount,
                 category: this.state.category,
                 date: this.state.date,
-                description: this.state.description,
+                description: values.description,
                 moneyDestination: this.state.moneyDestination,
                 moneySource: this.state.moneySource,
             },
             true,
         )
         this.props.hideModal()
-        this.setState({
-            amount: null,
-            category: 'uncategorized',
-            date: getDate(),
-            description: null,
-            moneyDestination: 'expense',
-            moneySource: 'capitalOneCredit',
-        })
     }
 
     render() {
-        const { hideModal } = this.props
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>
@@ -124,10 +102,11 @@ class AddLedgerEntry extends React.Component {
                         />
                     </View>
                     <Text style={styles.toolbarTitle}>Add Ledger Entry</Text>
-                    <TouchableOpacity style={styles.toolbarButton} onPress={hideModal}>
+                    <TouchableOpacity style={styles.toolbarButton} onPress={this.props.hideModal}>
                         <Text style={styles.toolbarText}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
+
                 <View style={styles.content}>
                     <View style={styles.fromToContainer}>
                         <Text style={styles.fromToText}>From</Text>
@@ -205,62 +184,53 @@ class AddLedgerEntry extends React.Component {
                     </View>
                     <Formik
                         onSubmit={values => {
-                            KeyboardModal.dismiss()
-                            console.log(values)
-                            // this.addLedgerEntry
+                            this.addLedgerEntry(values)
                         }}
+                        validateOnBlur
                         validationSchema={validationSchema}
                         render={props => (
                             <Form>
-                                <View style={styles.fromToContainer}>
-                                    <Text style={styles.fromToText}>From</Text>
-                                    <FormPicker
-                                        name="from"
-                                        values={[
-                                            { label: 'Allegent', value: 'allegent' },
-                                            {
-                                                label: 'Capital One Credit',
-                                                value: 'capitalOneCredit',
-                                            },
-                                            { label: 'Cash', value: 'cash' },
-                                            { label: 'Citizens', value: 'citizens' },
-                                            { label: 'Gift', value: 'gift' },
-                                            { label: 'Library', value: 'library' },
-                                            { label: 'Niche', value: 'niche' },
-                                            { label: 'Sale', value: 'sale' },
-                                            { label: 'Synchrony', value: 'synchrony' },
-                                            { label: 'Other', value: 'other' },
-                                        ]}
-                                    />
-                                </View>
                                 <FormTextInput
                                     label="Description"
-                                    mode="flat"
+                                    mode="outlined"
                                     name="description"
                                     onChangeText={this.handleOnDescriptionChange}
                                     style={styles.descriptionInput}
-                                    value={this.state.description}
                                 />
+                                {props.errors &&
+                                    props.errors.description &&
+                                    props.touched.description && (
+                                        <Text style={styles.errorText}>
+                                            {props.errors.description}
+                                        </Text>
+                                    )}
                                 <View style={styles.buttonRow}>
                                     <View style={styles.amountInputContainer}>
                                         <FormTextInput
                                             keyboardType="numeric"
                                             label="Amount"
-                                            mode="flat"
+                                            mode="outlined"
                                             name="amount"
                                             onChangeText={this.handleOnAmountChange}
                                             placeholder="$"
                                             style={styles.amountInput}
                                             type="amount"
-                                            value={this.state.amount}
                                         />
                                     </View>
                                     <View style={styles.buttonContainer}>
-                                        <Button mode="contained" dark onPress={props.handleSubmit}>
+                                        <Button
+                                            mode="contained"
+                                            dark
+                                            onPress={props.handleSubmit}
+                                            style={styles.button}
+                                        >
                                             Add Entry
                                         </Button>
                                     </View>
                                 </View>
+                                {props.errors && props.errors.amount && props.touched.amount && (
+                                    <Text style={styles.errorText}>{props.errors.amount}</Text>
+                                )}
                             </Form>
                         )}
                     />
@@ -280,6 +250,7 @@ const styles = StyleSheet.create({
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-start',
+        marginTop: 10,
     },
     amountInputDollarSign: {
         alignSelf: 'flex-end',
@@ -289,10 +260,12 @@ const styles = StyleSheet.create({
         width: 20,
     },
     button: {
-        flex: 1,
         alignSelf: 'stretch',
-        elevation: 2,
         borderRadius: 6,
+        elevation: 2,
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 15,
     },
     buttonContainer: {
         flex: 1,
@@ -320,6 +293,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        backgroundColor: '#fafafa',
     },
     content: {
         flex: 1,
@@ -332,8 +306,9 @@ const styles = StyleSheet.create({
         width: 100,
         borderWidth: 0,
     },
-    descriptionInput: {
-        marginBottom: 10,
+    descriptionInput: {},
+    errorText: {
+        color: 'red',
     },
     from: {
         color: 'red',
