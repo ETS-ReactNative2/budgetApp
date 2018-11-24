@@ -1,5 +1,7 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { Alert, TouchableOpacity, StyleSheet } from 'react-native'
+import * as ledgerActions from '../actions/ledgerActions'
+import store from '../../../store'
 
 class CompleteToggle extends React.Component {
     getStyle() {
@@ -9,16 +11,28 @@ class CompleteToggle extends React.Component {
         return styles.inactive
     }
 
-    toggle = () => {
-        if (this.props.checked) {
-            this.props.onUnchecked(this.props.index)
-        } else {
-            this.props.onChecked(this.props.index)
-        }
+    handleEntryPress = () => {
+        Alert.alert(
+            'Entry Pressed',
+            `Do you want to delete the "${this.props.description}" entry?`,
+            [
+                { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+                {
+                    text: 'Delete',
+                    onPress: () => this.props.onPress(this.props.guid),
+                },
+            ],
+            { cancelable: false },
+        )
     }
 
     render() {
-        return <TouchableOpacity style={[styles.button, this.getStyle()]} onPress={this.toggle} />
+        return (
+            <TouchableOpacity
+                style={[styles.button, this.getStyle()]}
+                onPress={this.handleEntryPress}
+            />
+        )
     }
 }
 

@@ -21,6 +21,20 @@ export function addLedgerEntry(
     }
 }
 
+export function deleteTodo(guid) {
+    return {
+        type: actions.DELETE,
+        guid,
+    }
+}
+
+export function editTodo(guid) {
+    return {
+        type: actions.EDIT,
+        guid,
+    }
+}
+
 export function completeTodo(guid) {
     return {
         type: actions.COMPLETE,

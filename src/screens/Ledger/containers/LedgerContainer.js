@@ -75,12 +75,6 @@ class LedgerContainer extends React.Component {
     }
 }
 
-/*
-<AddLedgerEntry
-style={styles.add}
-{...bindActionCreators(ledgerActions, dispatch)} />
- */
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

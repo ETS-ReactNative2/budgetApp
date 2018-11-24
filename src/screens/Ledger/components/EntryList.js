@@ -1,15 +1,20 @@
 import React from 'react'
-import { TouchableHighlight, StyleSheet, View, Text, FlatList } from 'react-native'
+import { Alert, TouchableHighlight, StyleSheet, View, Text, FlatList } from 'react-native'
 import CompleteToggle from './CompleteToggle'
 import { VisibilityFilters } from '../actions/actionTypes'
 
 class EntryList extends React.Component {
     constructor(props) {
         super(props)
+        this.handleCirclePress = this.handleCirclePress.bind(this)
+    }
+
+    handleCirclePress(description, guid) {
+        this.props.deleteTodo(description, guid)
     }
 
     renderItem = ({ item }) => {
-        const { completeTodo, incompleteTodo } = this.props
+        const { completeTodo, deleteTodo, incompleteTodo } = this.props
         return (
             <TouchableHighlight
                 underlayColor="#e4f2d9"
@@ -27,8 +32,9 @@ class EntryList extends React.Component {
                     <CompleteToggle
                         style={styles.toggle}
                         checked={item.completed}
-                        onChecked={() => completeTodo(item.guid)}
-                        onUnchecked={() => incompleteTodo(item.guid)}
+                        description={item.description}
+                        guid={item.guid}
+                        onPress={this.handleCirclePress}
                     />
                     <Text style={styles.dateText}>{item.date.substring(0, 5)}</Text>
                     <Text style={styles.descriptionText}>{item.description}</Text>

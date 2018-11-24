@@ -20,6 +20,13 @@ export default function ledgerReducer(ledgerEntries = [], action = {}) {
                 ...ledgerEntries.slice(index + 1),
             ]
 
+        case actions.DELETE:
+            const filtered = ledgerEntries.filter(entry => entry.guid !== action.guid)
+            return filtered
+
+        case actions.EDIT:
+            return [...ledgerEntries]
+
         case actions.INCOMPLETE:
             if (index === -1) {
                 return ledgerEntries
