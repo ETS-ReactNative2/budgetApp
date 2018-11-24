@@ -5,6 +5,7 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from 'react-navigation'
 import { View, Text } from 'react-native'
 import Ledger from '../screens/Ledger'
+import Analysis from '../screens/Analysis'
 
 class MonthScreen extends React.Component {
     render() {
@@ -26,22 +27,12 @@ class AccountsScreen extends React.Component {
     }
 }
 
-class AnalysisScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Analysis!</Text>
-            </View>
-        )
-    }
-}
-
 const Navigation = createMaterialTopTabNavigator(
     {
         LEDGER: Ledger,
         MONTH: MonthScreen,
         ACCOUNTS: AccountsScreen,
-        ANALYSIS: AnalysisScreen,
+        ANALYSIS: Analysis,
     },
     {
         navigationOptions: ({ navigation }) => ({

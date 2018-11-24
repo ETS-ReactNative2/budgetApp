@@ -1,7 +1,6 @@
 import React from 'react'
 import { Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import * as ledgerActions from '../actions/ledgerActions'
-import store from '../../../store'
 
 class CompleteToggle extends React.Component {
     getStyle() {

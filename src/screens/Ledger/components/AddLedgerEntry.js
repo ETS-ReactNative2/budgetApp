@@ -21,7 +21,7 @@ const FormTextInput = compose(
 const Form = withNextInputAutoFocusForm(View)
 
 const validationSchema = Yup.object().shape({
-    description: Yup.string().max(100, 'Descriptions must be less than 100 characters'),
+    description: Yup.string().max(150, 'Descriptions must be less than 100 characters'),
     amount: Yup.number()
         .typeError('Please enter a number')
         .required('Please enter an amount'),
@@ -195,6 +195,7 @@ class AddLedgerEntry extends React.Component {
                         render={props => (
                             <Form>
                                 <FormTextInput
+                                    error={props.errors && props.errors.length}
                                     label="Description"
                                     mode="outlined"
                                     name="description"
@@ -211,6 +212,7 @@ class AddLedgerEntry extends React.Component {
                                 <View style={styles.buttonRow}>
                                     <View style={styles.amountInputContainer}>
                                         <FormTextInput
+                                            error={props.errors && props.errors.length}
                                             keyboardType="numeric"
                                             label="Amount"
                                             mode="outlined"
@@ -223,8 +225,8 @@ class AddLedgerEntry extends React.Component {
                                     </View>
                                     <View style={styles.buttonContainer}>
                                         <Button
-                                            mode="contained"
                                             dark
+                                            mode="contained"
                                             onPress={props.handleSubmit}
                                             style={styles.button}
                                         >
