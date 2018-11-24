@@ -13,13 +13,13 @@ class EntryList extends React.Component {
         return (
             <TouchableHighlight
                 underlayColor="#e4f2d9"
-                key={item.id}
+                key={item.guid}
                 style={styles.row}
                 onPress={() => {
                     if (item.completed) {
-                        incompleteTodo(item.id)
+                        incompleteTodo(item.guid)
                     } else {
-                        completeTodo(item.id)
+                        completeTodo(item.guid)
                     }
                 }}
             >
@@ -27,12 +27,15 @@ class EntryList extends React.Component {
                     <CompleteToggle
                         style={styles.toggle}
                         checked={item.completed}
-                        onChecked={() => completeTodo(item.id)}
-                        onUnchecked={() => incompleteTodo(item.id)}
+                        onChecked={() => completeTodo(item.guid)}
+                        onUnchecked={() => incompleteTodo(item.guid)}
                     />
                     <Text style={styles.dateText}>{item.date.substring(0, 5)}</Text>
                     <Text style={styles.descriptionText}>{item.description}</Text>
-                    <Text style={styles.amountText}>${item.amount}</Text>
+                    <Text style={styles.amountText}>
+                        <Text style={{ color: '#ccc' }}>$ </Text>
+                        {item.amount}
+                    </Text>
                 </View>
             </TouchableHighlight>
         )
@@ -43,7 +46,7 @@ class EntryList extends React.Component {
             <View style={styles.container}>
                 <FlatList
                     data={this.props.ledgerEntries}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.guid}
                     renderItem={this.renderItem}
                 />
             </View>

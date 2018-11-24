@@ -2,7 +2,7 @@ import _ from 'lodash'
 import * as actions from '../actions/actionTypes'
 
 export default function ledgerReducer(ledgerEntries = [], action = {}) {
-    const index = _.findIndex(ledgerEntries, entry => entry.id === action.id)
+    const index = _.findIndex(ledgerEntries, entry => entry.guid === action.guid)
 
     switch (action.type) {
         case actions.ADD:

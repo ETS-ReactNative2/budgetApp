@@ -183,6 +183,10 @@ class AddLedgerEntry extends React.Component {
                         </Picker>
                     </View>
                     <Formik
+                        initialValues={{
+                            amount: '',
+                            description: '',
+                        }}
                         onSubmit={values => {
                             this.addLedgerEntry(values)
                         }}

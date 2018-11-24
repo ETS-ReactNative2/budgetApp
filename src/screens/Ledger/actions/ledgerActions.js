@@ -1,5 +1,5 @@
-import _ from 'lodash'
 import * as actions from './actionTypes'
+import { guidGenerator } from '../../../utils/guidGenerator'
 
 export function addLedgerEntry(
     { amount = 0, category, date, description, moneyDestination, moneySource },
@@ -9,7 +9,7 @@ export function addLedgerEntry(
     return {
         type: actions.ADD,
         entry: {
-            id: _.uniqueId('entry_'),
+            guid: guidGenerator(),
             amount: numAmount,
             category,
             date,
@@ -21,16 +21,16 @@ export function addLedgerEntry(
     }
 }
 
-export function completeTodo(id) {
+export function completeTodo(guid) {
     return {
         type: actions.COMPLETE,
-        id,
+        guid,
     }
 }
 
-export function incompleteTodo(id) {
+export function incompleteTodo(guid) {
     return {
         type: actions.INCOMPLETE,
-        id,
+        guid,
     }
 }
