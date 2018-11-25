@@ -6,7 +6,8 @@ import { categories as categoriesObj } from '../../../constants/categories'
 class CompleteToggle extends React.Component {
     getStyle() {
         if (this.props.checked) {
-            return { color: categoriesObj[this.props.category].color }
+            const color = categoriesObj[this.props.category].color
+            return { backgroundColor: color }
         }
         return styles.inactive
     }

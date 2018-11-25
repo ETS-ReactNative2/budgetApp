@@ -197,7 +197,7 @@ class AddLedgerEntry extends React.Component {
                                 <FormTextInput
                                     error={props.errors && props.errors.length}
                                     label="Description"
-                                    mode="outlined"
+                                    mode="flat"
                                     name="description"
                                     onChangeText={this.handleOnDescriptionChange}
                                     style={styles.descriptionInput}
@@ -215,7 +215,7 @@ class AddLedgerEntry extends React.Component {
                                             error={props.errors && props.errors.length}
                                             keyboardType="numeric"
                                             label="Amount"
-                                            mode="outlined"
+                                            mode="flat"
                                             name="amount"
                                             onChangeText={this.handleOnAmountChange}
                                             placeholder="$"
@@ -288,8 +288,8 @@ const styles = StyleSheet.create({
     },
     categoryContainer: {
         alignItems: 'center',
-        borderColor: '#1976D2',
-        borderRadius: 6,
+        borderColor: '#ccc',
+        borderRadius: 0,
         borderWidth: 1,
         display: 'flex',
         flexDirection: 'row',
@@ -312,7 +312,9 @@ const styles = StyleSheet.create({
         width: 100,
         borderWidth: 0,
     },
-    descriptionInput: {},
+    descriptionInput: {
+        color: '#0cc',
+    },
     errorText: {
         color: 'red',
     },
@@ -323,13 +325,13 @@ const styles = StyleSheet.create({
     },
     fromToContainer: {
         alignItems: 'center',
-        borderColor: '#1976D2',
-        borderRadius: 6,
+        borderColor: '#ccc',
+        borderRadius: 0,
         borderWidth: 1,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 10,
+        marginBottom: 15,
         paddingLeft: 10,
     },
     fromToText: {
@@ -345,7 +347,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     toolbar: {
-        backgroundColor: '#81c04d',
+        backgroundColor: 'rgb(126, 89, 191)',
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 10,

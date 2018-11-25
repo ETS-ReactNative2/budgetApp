@@ -54,7 +54,7 @@ export class AddLedgerEntryToolbar extends React.Component {
 
 const styles = StyleSheet.create({
     toolbar: {
-        backgroundColor: '#81c04d',
+        backgroundColor: '#51904d',
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 10,
