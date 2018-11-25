@@ -1,9 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
-// import { PieChartWithCenteredLabels } from '../components/PieChartWithCenteredLabels'
 import { PieChartWithLabel } from '../components/PieChartWithLabel'
-// import { PieChartWithDynamicSlices } from '../components/PieChartWithDynamicSlices'
 // import { bindActionCreators } from 'redux'
 // import * as AnalysisActions from '../actions/AnalysisActions'
 import { VisibilityFilters } from '../actions/actionTypes'
@@ -14,11 +12,7 @@ class AnalysisContainer extends React.PureComponent {
         const { ledgerEntries, filter, dispatch } = this.props
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                {
-                    // <PieChartWithCenteredLabels ledgerEntries={ledgerEntries} />
-                    <PieChartWithLabel ledgerEntries={ledgerEntries} />
-                    // <PieChartWithDynamicSlices />
-                }
+                <PieChartWithLabel ledgerEntries={ledgerEntries} />
             </View>
         )
     }

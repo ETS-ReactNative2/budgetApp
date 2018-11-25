@@ -1,26 +1,21 @@
-import Please from '../../../utils/Please'
+import { categories as categoriesObj } from '../../../constants/categories'
 
 export const getCategoryData = ledgerEntries => {
     const categoryNames = []
     const categories = []
-    ledgerEntries.forEach((entry, i) => {
+    ledgerEntries.forEach(entry => {
         const index = categoryNames.indexOf(entry.category)
         if (index === -1) {
             categoryNames.push(entry.category)
             categories.push({
-                key: i,
+                key: entry.category,
                 name: entry.category,
                 value: parseInt(entry.amount),
-                svg: { fill: '' },
+                svg: { fill: categoriesObj[entry.category].color },
             })
         } else {
             categories[index].value += parseInt(entry.amount)
         }
-    })
-
-    const colors = Please.make_color({ colors_returned: categories.length })
-    categories.forEach((category, i) => {
-        category.svg.fill = colors[i]
     })
 
     categories.sort((entryA, entryB) => entryA.value - entryB.value)

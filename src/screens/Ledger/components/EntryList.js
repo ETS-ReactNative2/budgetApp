@@ -31,6 +31,7 @@ class EntryList extends React.Component {
                 <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}>
                     <CompleteToggle
                         style={styles.toggle}
+                        category={item.category}
                         checked={item.completed}
                         description={item.description}
                         guid={item.guid}

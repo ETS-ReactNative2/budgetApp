@@ -1,11 +1,12 @@
 import React from 'react'
 import { Alert, TouchableOpacity, StyleSheet } from 'react-native'
 import * as ledgerActions from '../actions/ledgerActions'
+import { categories as categoriesObj } from '../../../constants/categories'
 
 class CompleteToggle extends React.Component {
     getStyle() {
         if (this.props.checked) {
-            return styles.active
+            return { color: categoriesObj[this.props.category].color }
         }
         return styles.inactive
     }
