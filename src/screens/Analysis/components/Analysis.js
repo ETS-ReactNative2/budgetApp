@@ -31,7 +31,11 @@ export class Analysis extends React.Component {
         return (
             <View style={styles.container}>
                 <View>
-                    <PieChartWithLabel ledgerEntries={this.props.ledgerEntries} />
+                    <PieChartWithLabel
+                        ledgerEntries={this.props.ledgerEntries}
+                        unit={this.state.pieChartUnit}
+                        interval={this.state.pieChartInterval}
+                    />
                     <View style={styles.pickersContainer}>
                         <Picker
                             value={this.state.pieChartUnit}

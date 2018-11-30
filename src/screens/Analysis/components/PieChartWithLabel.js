@@ -9,7 +9,8 @@ const { width } = Dimensions.get('window')
 
 export class PieChartWithLabel extends React.PureComponent {
     render() {
-        const pieData = getCategoryData(this.props.ledgerEntries)
+        const { ledgerEntries, unit, interval } = this.props
+        const pieData = getCategoryData(ledgerEntries, unit, interval)
         const Labels = ({ slices }) =>
             slices.map((slice, index) => {
                 const { labelCentroid, pieCentroid, data } = slice
