@@ -4,6 +4,7 @@ import { PieChart } from 'react-native-svg-charts'
 import { Circle, G, Line, Text as SVGText, TSpan } from 'react-native-svg'
 import { RadioButton } from 'react-native-paper'
 import { getCategoryData } from '../utils/getCategoryData'
+import { categories } from '../../../constants/categories'
 
 const { width } = Dimensions.get('window')
 
@@ -56,7 +57,7 @@ export class PieChartWithLabel extends React.PureComponent {
                             y={pieCentroid[1]}
                         >
                             <TSpan x={labelCentroid[0]} y={labelCentroid[1]} dy="30">
-                                {data.name}
+                                {categories[data.name].displayName.toLowerCase()}
                             </TSpan>
                         </SVGText>
                     </G>

@@ -12,6 +12,7 @@ import { compose } from 'redux'
 import { Formik, Field } from 'formik'
 import * as Yup from 'yup'
 import MaterialTextInput from '../../../components/MaterialTextInput'
+import { categories } from '../../../constants/categories'
 
 const FormTextInput = compose(
     makeInput,
@@ -51,12 +52,16 @@ class AddLedgerEntry extends React.Component {
     }
 
     addLedgerEntry = values => {
+        const description =
+            values.description !== ''
+                ? values.description
+                : categories[this.state.category].displayName
         this.props.addLedgerEntry(
             {
                 amount: values.amount,
                 category: this.state.category,
                 date: this.state.date,
-                description: values.description,
+                description,
                 moneyDestination: this.state.moneyDestination,
                 moneySource: this.state.moneySource,
             },
