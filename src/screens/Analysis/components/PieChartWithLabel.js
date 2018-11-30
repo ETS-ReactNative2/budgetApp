@@ -1,8 +1,8 @@
 import React from 'react'
-import { Dimensions, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
-import { Circle, G, Line, Text, TSpan } from 'react-native-svg'
-import { Text as PaperText } from 'react-native-paper'
+import { Circle, G, Line, Text as SVGText, TSpan } from 'react-native-svg'
+import { RadioButton } from 'react-native-paper'
 import { getCategoryData } from '../utils/getCategoryData'
 
 const { width } = Dimensions.get('window')
@@ -28,7 +28,7 @@ export class PieChartWithLabel extends React.PureComponent {
                             r={20}
                             fill={data.svg.fill}
                         />
-                        <Text
+                        <SVGText
                             alignmentBaseline="middle"
                             fill="white"
                             fontSize={12}
@@ -42,8 +42,8 @@ export class PieChartWithLabel extends React.PureComponent {
                             <TSpan x={labelCentroid[0]} y={labelCentroid[1] + 2}>
                                 {data.value}
                             </TSpan>
-                        </Text>
-                        <Text
+                        </SVGText>
+                        <SVGText
                             alignmentBaseline="middle"
                             fill={data.svg.fill}
                             fontSize={15}
@@ -57,29 +57,31 @@ export class PieChartWithLabel extends React.PureComponent {
                             <TSpan x={labelCentroid[0]} y={labelCentroid[1]} dy="30">
                                 {data.name}
                             </TSpan>
-                        </Text>
+                        </SVGText>
                     </G>
                 )
             })
 
         return (
-            <View
-                style={{
-                    alignItems: 'center',
-                    flex: 1,
-                    justifyContent: 'center',
-                }}
-            >
-                <PieChart
-                    style={{ flex: 3, padding: 20, width }}
-                    data={pieData}
-                    innerRadius={55}
-                    outerRadius={110}
-                    labelRadius={150}
-                >
-                    <Labels />
-                </PieChart>
+            <View style={styles.container}>
+                {pieData && pieData.length && (
+                    <PieChart
+                        style={{ flex: 3, padding: 0, width }}
+                        data={pieData}
+                        innerRadius={55}
+                        outerRadius={110}
+                        labelRadius={150}
+                    >
+                        <Labels />
+                    </PieChart>
+                )}
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        height: width,
+    },
+})
