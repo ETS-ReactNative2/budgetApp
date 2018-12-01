@@ -5,7 +5,7 @@ import { IconButton, Colors } from 'react-native-paper'
 const NewEntryButton = ({ showModal }) => (
     <IconButton
         icon="add-circle"
-        color={Colors.blue200}
+        color="rgb(126, 89, 191)"
         size={75}
         style={styles.button}
         onPress={showModal}

@@ -53,7 +53,7 @@ const Navigation = createMaterialTopTabNavigator(
             activeTintColor: 'rgb(12,157,197)',
             inactiveTintColor: 'black',
             indicatorStyle: {
-                backgroundColor: 'rgb(102,134,205)',
+                backgroundColor: 'rgb(126, 89, 191)',
             },
             labelStyle: {
                 fontSize: 14,
