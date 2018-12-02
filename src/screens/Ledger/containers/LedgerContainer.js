@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import * as ledgerActions from '../actions/ledgerActions'
 import * as ledgerModalVisibilityActions from '../actions/ledgerModalVisibilityActions'
 import { VisibilityFilters } from '../actions/actionTypes'
-import NewEntryButton from '../components/NewEntryButton'
+import { NewEntryButton } from '../components/NewEntryButton'
+import { BackupDataButton } from '../components/BackupDataButton'
 import EntryList from '../components/EntryList'
 import AddLedgerEntry from '../components/AddLedgerEntry'
 
@@ -45,6 +46,7 @@ class LedgerContainer extends React.Component {
         const { ledgerEntries, filter, dispatch, ledgerModalVisible } = this.props
         return (
             <View style={styles.container}>
+                <BackupDataButton ledgerEntries={ledgerEntries} />
                 <NewEntryButton {...bindActionCreators(ledgerModalVisibilityActions, dispatch)} />
                 {
                     <EntryList

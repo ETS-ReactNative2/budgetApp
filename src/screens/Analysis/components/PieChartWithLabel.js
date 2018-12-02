@@ -63,7 +63,7 @@ export class PieChartWithLabel extends React.PureComponent {
                     </G>
                 )
             })
-
+        console.log(pieData)
         return (
             <View style={styles.container}>
                 {pieData && pieData.length && (

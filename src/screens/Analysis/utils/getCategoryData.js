@@ -33,5 +33,5 @@ export const getCategoryData = (ledgerEntries, unit, interval) => {
         categories.forEach(category => (category.value = category.dollars))
     }
 
-    return categories
+    return categories.filter(category => category.percent > 1)
 }

@@ -1,32 +1,15 @@
-// import React from 'react'
-// import { Alert, StyleSheet, View, Modal } from 'react-native'
+import React from 'react'
+import { connect } from 'react-redux'
+import * as accountsActions from '../actions/accountsActions'
+import * as accountsModalVisibilityActions from '../actions/accountsModalVisibilityActions'
+import { Accounts } from '../components/Accounts'
+
 // import { bindActionCreators } from 'redux'
-// import { connect } from 'react-redux'
-// import * as accountsActions from '../actions/accountsActions'
-// import * as accountsModalVisibilityActions from '../actions/accountsModalVisibilityActions'
-// import { VisibilityFilters } from '../actions/actionTypes'
-// import NewEntryButton from '../components/NewEntryButton'
-// import EntryList from '../components/EntryList'
+// import AccountsCards from '../components/AccountsCards'
 // import AddAccount from '../components/AddAccount'
 
 // import store from '../../../store'
 
-// @connect(state => ({
-//     todos: state.todos.filter(todo => {
-//         if (state.filter === VisibilityFilters.ALL) {
-//             return true
-//         }
-//         if (state.filter === VisibilityFilters.COMPLETED) {
-//             return todo.completed
-//         }
-//         if (state.filter === VisibilityFilters.INCOMPLETE) {
-//             return !todo.completed
-//         }
-//         return true
-//     }),
-//     filter: state.filter,
-//     accountsModalVisible: state.accountsModal.visible,
-// }))
 // class AccountsContainer extends React.Component {
 //     handleCloseModal = () => {
 //         Alert.alert(
@@ -95,4 +78,12 @@
 //     },
 // })
 
-// export default AccountsContainer
+const mapStateToProps = state => ({
+    accounts: state.accounts,
+    accountsModalVisible: state.accountsModal.visible,
+})
+
+export default connect(
+    mapStateToProps,
+    null,
+)(Accounts)

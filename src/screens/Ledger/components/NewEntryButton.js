@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { IconButton, Colors } from 'react-native-paper'
 
-const NewEntryButton = ({ showModal }) => (
+export const NewEntryButton = ({ showModal }) => (
     <IconButton
         icon="add-circle"
         color="rgb(126, 89, 191)"
@@ -24,5 +24,3 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
 })
-
-export default NewEntryButton

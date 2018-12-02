@@ -2,6 +2,7 @@ import React from 'react'
 import { Alert, TouchableHighlight, StyleSheet, View, Text, FlatList } from 'react-native'
 import CompleteToggle from './CompleteToggle'
 import { VisibilityFilters } from '../actions/actionTypes'
+import { categories } from '../../../constants/categories'
 
 class EntryList extends React.Component {
     constructor(props) {
@@ -15,11 +16,12 @@ class EntryList extends React.Component {
 
     renderItem = ({ item }) => {
         const { completeTodo, deleteTodo, incompleteTodo } = this.props
+        const backgroundColor = `${categories[item.category].color}11`
         return (
             <TouchableHighlight
                 underlayColor="#e4f2d9"
                 key={item.guid}
-                style={styles.row}
+                style={Object.assign({}, { backgroundColor }, styles.row)}
                 onPress={() => {
                     if (item.completed) {
                         incompleteTodo(item.guid)
@@ -64,12 +66,10 @@ class EntryList extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 10,
     },
     row: {
         flexDirection: 'row',
-        paddingTop: 8,
-        paddingBottom: 8,
+        paddingVertical: 12,
         paddingLeft: 20,
         paddingRight: 20,
         justifyContent: 'center',
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         width: 80,
     },
     dateText: {
+        color: '#999',
         fontSize: 15,
         paddingLeft: 15,
         width: 60,
