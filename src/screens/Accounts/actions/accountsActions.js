@@ -1,50 +1,26 @@
 import * as actions from './actionTypes'
-import { guidGenerator } from '../../../utils/guidGenerator'
 
-export function addLedgerEntry(
-    { amount = 0, category, date, description, moneyDestination, moneySource },
-    completed,
-) {
+export function editTodo({ account, amount = 0 }) {
     const numAmount = parseFloat(Math.round(amount * 100) / 100).toFixed(2)
     return {
-        type: actions.ADD,
-        entry: {
-            guid: guidGenerator(),
+        type: actions.EDIT,
+        account: {
+            name: account,
             amount: numAmount,
-            category,
-            date,
-            description,
-            moneyDestination,
-            moneySource,
-            completed: completed === true,
         },
     }
 }
 
-export function deleteTodo(guid) {
+export function showModal() {
     return {
-        type: actions.DELETE,
-        guid,
+        type: actions.SET_ACCOUNTS_MODAL_VISIBILITY,
+        visible: true,
     }
 }
 
-export function editTodo(guid) {
+export function hideModal() {
     return {
-        type: actions.EDIT,
-        guid,
-    }
-}
-
-export function completeTodo(guid) {
-    return {
-        type: actions.COMPLETE,
-        guid,
-    }
-}
-
-export function incompleteTodo(guid) {
-    return {
-        type: actions.INCOMPLETE,
-        guid,
+        type: actions.SET_ACCOUNTS_MODAL_VISIBILITY,
+        visible: false,
     }
 }

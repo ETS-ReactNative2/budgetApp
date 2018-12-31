@@ -1,7 +1,6 @@
 import React from 'react'
-import { Alert, TouchableHighlight, StyleSheet, View, Text, FlatList } from 'react-native'
+import { TouchableHighlight, StyleSheet, View, Text, FlatList } from 'react-native'
 import CompleteToggle from './CompleteToggle'
-import { VisibilityFilters } from '../actions/actionTypes'
 import { categories } from '../../../constants/categories'
 
 class EntryList extends React.Component {
@@ -15,7 +14,7 @@ class EntryList extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        const { completeTodo, deleteTodo, incompleteTodo } = this.props
+        const { completeTodo, incompleteTodo } = this.props
         const backgroundColor = `${categories[item.category].color}11`
         return (
             <TouchableHighlight

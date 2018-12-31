@@ -1,8 +1,7 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
-import { Circle, G, Line, Text as SVGText, TSpan } from 'react-native-svg'
-import { RadioButton } from 'react-native-paper'
+import { Circle, G, Line, Text, TSpan } from 'react-native-svg'
 import { getCategoryData } from '../utils/getCategoryData'
 import { categories } from '../../../constants/categories'
 
@@ -13,10 +12,10 @@ export class PieChartWithLabel extends React.PureComponent {
         const { ledgerEntries, unit, interval } = this.props
         const pieData = getCategoryData(ledgerEntries, unit, interval)
         const Labels = ({ slices }) =>
-            slices.map((slice, index) => {
+            slices.map(slice => {
                 const { labelCentroid, pieCentroid, data } = slice
                 return (
-                    <G key={index}>
+                    <G key={`G-${data.key}`}>
                         <Line
                             x1={labelCentroid[0]}
                             y1={labelCentroid[1]}
@@ -30,11 +29,11 @@ export class PieChartWithLabel extends React.PureComponent {
                             r={20}
                             fill={data.svg.fill}
                         />
-                        <SVGText
+                        <Text
                             alignmentBaseline="middle"
                             fill="white"
                             fontSize={12}
-                            key={index}
+                            key={`value-${data.key}`}
                             stroke="white"
                             strokeWidth={0.1}
                             textAnchor="middle"
@@ -44,12 +43,12 @@ export class PieChartWithLabel extends React.PureComponent {
                             <TSpan x={labelCentroid[0]} y={labelCentroid[1] + 2}>
                                 {data.value}
                             </TSpan>
-                        </SVGText>
-                        <SVGText
+                        </Text>
+                        <Text
                             alignmentBaseline="middle"
                             fill={data.svg.fill}
                             fontSize={15}
-                            key={index}
+                            key={`name-${data.key}`}
                             stroke="white"
                             strokeWidth={0.2}
                             textAnchor="middle"
@@ -59,24 +58,21 @@ export class PieChartWithLabel extends React.PureComponent {
                             <TSpan x={labelCentroid[0]} y={labelCentroid[1]} dy="30">
                                 {categories[data.name].displayName.toLowerCase()}
                             </TSpan>
-                        </SVGText>
+                        </Text>
                     </G>
                 )
             })
-        console.log(pieData)
         return (
             <View style={styles.container}>
-                {pieData && pieData.length && (
-                    <PieChart
-                        style={{ flex: 3, padding: 0, width }}
-                        data={pieData}
-                        innerRadius={55}
-                        outerRadius={110}
-                        labelRadius={150}
-                    >
-                        <Labels />
-                    </PieChart>
-                )}
+                <PieChart
+                    style={{ flex: 3, padding: 0, width }}
+                    data={pieData}
+                    innerRadius={55}
+                    outerRadius={110}
+                    labelRadius={150}
+                >
+                    <Labels />
+                </PieChart>
             </View>
         )
     }

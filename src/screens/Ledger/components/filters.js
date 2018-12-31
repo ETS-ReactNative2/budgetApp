@@ -36,7 +36,7 @@ class Filters extends React.Component {
 
 const styles = StyleSheet.create({
     bar: {
-        backgroundColor: '#81c04d',
+        background: '#81c04d',
         flexDirection: 'row',
     },
     button: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     current: {
-        backgroundColor: '#70a743',
+        background: '#70a743',
     },
 })
 

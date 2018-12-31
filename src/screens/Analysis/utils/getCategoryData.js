@@ -4,6 +4,7 @@ export const getCategoryData = (ledgerEntries, unit, interval) => {
     const categoryNames = []
     const categories = []
     let total = 0
+
     ledgerEntries.forEach(entry => {
         const index = categoryNames.indexOf(entry.category)
         if (index === -1) {
@@ -23,14 +24,20 @@ export const getCategoryData = (ledgerEntries, unit, interval) => {
     categories.sort((categoryA, categoryB) => categoryA.value - categoryB.value)
 
     categories.forEach(category => {
-        category.dollars = parseInt(category.rawValue)
-        category.percent = parseInt((category.rawValue / total) * 100)
+        category.dollars = parseInt(category.rawValue, 10)
+        category.percent = parseInt((category.rawValue / total) * 100, 10)
     })
 
     if (unit === 'percent') {
-        categories.forEach(category => (category.value = category.percent))
+        categories.forEach(category => {
+            category.value = category.percent
+            return null
+        })
     } else {
-        categories.forEach(category => (category.value = category.dollars))
+        categories.forEach(category => {
+            category.value = category.dollars
+            return null
+        })
     }
 
     return categories.filter(category => category.percent > 1)

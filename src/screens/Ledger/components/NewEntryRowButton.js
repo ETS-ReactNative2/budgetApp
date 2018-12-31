@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     border: {
         flex: 1,
         height: 1,
-        backgroundColor: 'gray',
+        background: 'gray',
     },
 })
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { RadioButton, Text } from 'react-native-paper'
 import { PieChartWithLabel } from './PieChartWithLabel'
 import { Picker } from '../../../components/Picker'
 

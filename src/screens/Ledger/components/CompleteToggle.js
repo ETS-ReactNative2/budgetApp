@@ -7,7 +7,7 @@ class CompleteToggle extends React.Component {
     getStyle() {
         if (this.props.checked) {
             const color = categoriesObj[this.props.category].color
-            return { backgroundColor: color }
+            return { background: color }
         }
         return styles.inactive
     }

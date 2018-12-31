@@ -9,6 +9,7 @@ module.exports = {
     'env': { 'jest': true },
     'rules': {
         'comma-dangle': ['warn', 'only-multiline'],
+        'import/prefer-default-export': 'off',
         'no-use-before-define': 'off',
         'react/destructuring-assignment': 'never',
         'react/jsx-curly-spacing': 'always',
