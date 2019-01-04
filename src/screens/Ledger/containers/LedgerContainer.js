@@ -2,6 +2,7 @@ import React from 'react'
 import { Alert, StyleSheet, View, Modal } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as accountsActions from '../../Accounts/actions/accountsActions'
 import * as ledgerActions from '../actions/ledgerActions'
 import * as ledgerModalVisibilityActions from '../actions/ledgerModalVisibilityActions'
 import { VisibilityFilters } from '../actions/actionTypes'
@@ -68,6 +69,7 @@ class LedgerContainer extends React.Component {
                     onRequestClose={this.handleCloseModal}
                 >
                     <AddLedgerEntry
+                        {...bindActionCreators(accountsActions, dispatch)}
                         {...bindActionCreators(ledgerActions, dispatch)}
                         {...bindActionCreators(ledgerModalVisibilityActions, dispatch)}
                     />
@@ -92,18 +94,20 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-    ledgerEntries: state.ledgerEntries.filter(entry => {
-        if (state.filter === VisibilityFilters.ALL) {
-            return true
-        }
-        if (state.filter === VisibilityFilters.COMPLETED) {
-            return entry.completed
-        }
-        if (state.filter === VisibilityFilters.INCOMPLETE) {
-            return !entry.completed
-        }
-        return true
-    }),
+    accounts: state.accounts,
+    ledgerEntries: state.ledgerEntries,
+    // ledgerEntries: state.ledgerEntries.payload.filter(entry => {
+    //     if (state.filter === VisibilityFilters.ALL) {
+    //         return true
+    //     }
+    //     if (state.filter === VisibilityFilters.COMPLETED) {
+    //         return entry.completed
+    //     }
+    //     if (state.filter === VisibilityFilters.INCOMPLETE) {
+    //         return !entry.completed
+    //     }
+    //     return true
+    // }),
     filter: state.filter,
     ledgerModalVisible: state.ledgerModal.visible,
 })

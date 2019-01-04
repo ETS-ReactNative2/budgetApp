@@ -67,6 +67,11 @@ class AddLedgerEntry extends React.Component {
             },
             true,
         )
+        this.props.accountAdd({
+            moneyDestination: this.state.moneyDestination,
+            amount: values.amount,
+        })
+        this.props.accountSubtract({ moneySource: this.state.moneySource, amount: values.amount })
         this.props.hideModal()
     }
 

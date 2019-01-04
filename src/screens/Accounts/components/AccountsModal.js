@@ -54,10 +54,17 @@ class AccountsModal extends React.Component {
                 </View>
 
                 <View style={styles.content}>
+                    <Text style={{ fontSize: 16, color: 'rgb(126, 89, 191)' }}>
+                        {this.props.displayName}
+                    </Text>
+                    <Text style={{ fontSize: 14, color: 'rgb(175, 175, 175)' }}>
+                        Previous Amount:
+                    </Text>
+                    <Text style={{ fontSize: 18, color: 'rgb(126, 126, 126)' }}>
+                        {this.props.previousAmount}
+                    </Text>
                     <Formik
-                        initialValues={{
-                            amount: this.props.amount,
-                        }}
+                        initialValues={{ amount: this.props.amount }}
                         onSubmit={values => {
                             this.editAccount(values)
                         }}
@@ -65,27 +72,31 @@ class AccountsModal extends React.Component {
                         validationSchema={validationSchema}
                         render={props => (
                             <Form>
-                                <View style={styles.amountInputContainer}>
-                                    <FormTextInput
-                                        error={props.errors && props.errors.length}
-                                        keyboardType="numeric"
-                                        label="Amount"
-                                        mode="flat"
-                                        name="amount"
-                                        onChangeText={this.handleOnAmountChange}
-                                        placeholder="$"
-                                        style={styles.amountInput}
-                                        type="amount"
-                                    />
+                                <View style={styles.buttonRow}>
+                                    <View style={styles.amountInputContainer}>
+                                        <FormTextInput
+                                            error={props.errors && props.errors.length}
+                                            keyboardType="numeric"
+                                            label="New Amount"
+                                            mode="flat"
+                                            name="amount"
+                                            onChangeText={this.handleOnAmountChange}
+                                            placeholder="$"
+                                            style={styles.amountInput}
+                                            type="amount"
+                                        />
+                                    </View>
+                                    <View style={styles.buttonContainer}>
+                                        <Button
+                                            dark
+                                            mode="contained"
+                                            onPress={props.handleSubmit}
+                                            style={styles.button}
+                                        >
+                                            Update
+                                        </Button>
+                                    </View>
                                 </View>
-                                <Button
-                                    dark
-                                    mode="contained"
-                                    onPress={props.handleSubmit}
-                                    style={styles.button}
-                                >
-                                    Add Entry
-                                </Button>
                                 {props.errors && props.errors.amount && props.touched.amount && (
                                     <Text style={styles.errorText}>{props.errors.amount}</Text>
                                 )}

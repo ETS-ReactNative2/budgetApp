@@ -26,7 +26,7 @@ class AccountsContainer extends React.Component {
     }
 
     render() {
-        const { dispatch, accountsModalVisible } = this.props
+        const { dispatch, accountsModalVisible, previousAmount, displayName } = this.props
         return (
             <View style={styles.container}>
                 <AccountsList {...bindActionCreators(accountsActions, dispatch)} />
@@ -36,7 +36,11 @@ class AccountsContainer extends React.Component {
                     visible={accountsModalVisible}
                     onRequestClose={this.handleCloseModal}
                 >
-                    <AccountsModal {...bindActionCreators(accountsActions, dispatch)} />
+                    <AccountsModal
+                        previousAmount={previousAmount}
+                        displayName={displayName}
+                        {...bindActionCreators(accountsActions, dispatch)}
+                    />
                 </Modal>
             </View>
         )
@@ -52,6 +56,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     accounts: state.accounts,
     accountsModalVisible: state.accountsModal.visible,
+    previousAmount: state.accountsModal.previousAmount,
+    displayName: state.accountsModal.displayName,
 })
 
 export default connect(

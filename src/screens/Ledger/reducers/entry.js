@@ -21,6 +21,7 @@ export default function ledgerReducer(ledgerEntries = [], action = {}) {
             ]
 
         case actions.DELETE:
+            // eslint-disable-next-line no-case-declarations
             const filtered = ledgerEntries.filter(entry => entry.guid !== action.guid)
             return filtered
 

@@ -9,18 +9,19 @@ import { VisibilityFilters } from '../actions/actionTypes'
 import store from '../../../store'
 
 const mapStateToProps = state => ({
-    ledgerEntries: state.ledgerEntries.filter(entry => {
-        if (state.filter === VisibilityFilters.ALL) {
-            return true
-        }
-        if (state.filter === VisibilityFilters.COMPLETED) {
-            return entry.completed
-        }
-        if (state.filter === VisibilityFilters.INCOMPLETE) {
-            return !entry.completed
-        }
-        return true
-    }),
+    ledgerEntries: state.ledgerEntries,
+    // ledgerEntries: state.ledgerEntries.filter(entry => {
+    //     if (state.filter === VisibilityFilters.ALL) {
+    //         return true
+    //     }
+    //     if (state.filter === VisibilityFilters.COMPLETED) {
+    //         return entry.completed
+    //     }
+    //     if (state.filter === VisibilityFilters.INCOMPLETE) {
+    //         return !entry.completed
+    //     }
+    //     return true
+    // }),
     filter: state.filter,
 })
 

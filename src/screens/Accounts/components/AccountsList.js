@@ -7,7 +7,10 @@ export class AccountsList extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
+                    <TouchableOpacity
+                        style={styles.card}
+                        onPress={() => this.props.showModal('Capital One Credit', '$34.15')}
+                    >
                         <Text style={styles.cardTitle}>Capital One Credit</Text>
                         <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
                     </TouchableOpacity>
