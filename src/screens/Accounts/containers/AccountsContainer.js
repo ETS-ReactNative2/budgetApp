@@ -29,7 +29,10 @@ class AccountsContainer extends React.Component {
         const { dispatch, accountsModalVisible, previousAmount, displayName } = this.props
         return (
             <View style={styles.container}>
-                <AccountsList {...bindActionCreators(accountsActions, dispatch)} />
+                <AccountsList
+                    accounts={this.props.accounts}
+                    {...bindActionCreators(accountsActions, dispatch)}
+                />
                 <Modal
                     animationType="slide"
                     transparent={false}

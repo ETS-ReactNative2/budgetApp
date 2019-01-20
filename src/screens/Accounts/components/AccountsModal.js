@@ -1,17 +1,14 @@
 import React from 'react'
-import { Picker, StyleSheet, TouchableOpacity, View } from 'react-native'
-import DatePicker from 'react-native-datepicker'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import makeInput, {
-    keyboardModal,
-    withPickerValues,
     withNextInputAutoFocusForm,
     withNextInputAutoFocusInput,
 } from 'react-native-formik'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { compose } from 'redux'
-import { Formik, Field } from 'formik'
+import { Formik } from 'formik'
 import * as Yup from 'yup'
-import MaterialTextInput from '../../../components/MaterialTextInput'
+import { accounts, displayNames } from '../../../constants/accounts'
 
 const FormTextInput = compose(
     makeInput,
@@ -27,27 +24,20 @@ const validationSchema = Yup.object().shape({
 })
 
 class AccountsModal extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            account: 'capitalOneCredit',
-            amount: 12.12,
-        }
-    }
-
-    editAccount = (account, amount) => {
+    editAccount = ({ amount }) => {
         this.props.editAccount({
-            account,
+            account: displayNames[this.props.displayName],
             amount,
         })
         this.props.hideModal()
     }
 
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>
-                    <Text style={styles.toolbarTitle}>{`Edit ${this.props.account}`}</Text>
+                    <Text style={styles.toolbarTitle}>Update Amount</Text>
                     <TouchableOpacity style={styles.toolbarButton} onPress={this.props.hideModal}>
                         <Text style={styles.toolbarText}>Cancel</Text>
                     </TouchableOpacity>
@@ -64,10 +54,7 @@ class AccountsModal extends React.Component {
                         {this.props.previousAmount}
                     </Text>
                     <Formik
-                        initialValues={{ amount: this.props.amount }}
-                        onSubmit={values => {
-                            this.editAccount(values)
-                        }}
+                        onSubmit={this.editAccount}
                         validateOnBlur
                         validationSchema={validationSchema}
                         render={props => (
@@ -174,8 +161,8 @@ const styles = StyleSheet.create({
     },
     toolbarTitle: {
         flex: 1,
-        color: 'rgb(126, 89, 191)',
-        textAlign: 'center',
+        color: '#fff',
+        textAlign: 'left',
         fontWeight: 'bold',
     },
 })

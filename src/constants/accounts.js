@@ -47,6 +47,10 @@ export const accounts = {
         displayName: 'Costco Credit',
         color: '',
     },
+    expense: {
+        displayName: 'Expenses',
+        color: '',
+    },
     gift: {
         displayName: 'Gift',
         color: '',
@@ -71,4 +75,26 @@ export const accounts = {
         displayName: 'Other',
         color: '',
     },
+}
+
+export const displayNames = {
+    Allegent: 'allegent',
+    'Capital One Credit': 'capitalOneCredit',
+    'Capital One Long-Term': 'capitalOneLongTerm',
+    'Capital One Short-Term': 'capitalOneShortTerm',
+    'Capital One Utilities': 'capitalOneUtilities',
+    'Capital One Gifts': 'capitalOneGifts',
+    'Capital One Extras': 'capitalOneExtras',
+    'Capital One Vacation': 'capitalOneVacation',
+    Cash: 'cash',
+    'Chase Credit': 'chaseCredit',
+    Citizens: 'citizens',
+    'Costco Credit': 'costcoCredit',
+    Expenses: 'expense',
+    Gift: 'gift',
+    Library: 'library',
+    Niche: 'niche',
+    Sale: 'sale',
+    Synchrony: 'synchrony',
+    Other: 'other',
 }

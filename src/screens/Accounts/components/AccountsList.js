@@ -1,84 +1,38 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react'
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { accounts as accountsDict } from '../../../constants/accounts'
 
 export class AccountsList extends React.Component {
-    render() {
+    keyExtractor = account => account.name
+
+    renderItem = ({ item }) => {
+        const { displayName } = accountsDict[item.name] || ''
+        const { amount } = item
+        const amountString = parseFloat(Math.round(amount * 100) / 100).toFixed(2)
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.row}>
-                    <TouchableOpacity
-                        style={styles.card}
-                        onPress={() => this.props.showModal('Capital One Credit', '$34.15')}
-                    >
-                        <Text style={styles.cardTitle}>Capital One Credit</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Capital One Long-Term</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Capital One Short-Term</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Capital One Utilities</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Capital One Gifts</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Capital One Extras</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Capital One Vacation</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Cash</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Chase Credit</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Citizens</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Costco Credit</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Expense</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Synchrony</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.card} onPress={this.props.showModal}>
-                        <Text style={styles.cardTitle}>Vanguard</Text>
-                        <Text style={styles.cardAmount}>{`$${'34.15'}`}</Text>
-                    </TouchableOpacity>
-                </View>
+            <TouchableOpacity
+                style={styles.gridItem}
+                onPress={() => this.props.showModal(displayName, amountString)}
+            >
+                <Text style={styles.cardTitle}>{displayName}</Text>
+                <Text style={styles.cardAmount}>{amountString}</Text>
+            </TouchableOpacity>
+        )
+    }
+
+    render() {
+        console.log(this.props)
+        return (
+            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                <FlatList
+                    style={{ flexDirection: 'column' }}
+                    contentContainerStyle={styles.grid}
+                    data={this.props.accounts}
+                    keyExtractor={this.keyExtractor}
+                    numColumns={2}
+                    renderItem={this.renderItem}
+                />
                 <View style={styles.spacer} />
             </ScrollView>
         )
@@ -93,6 +47,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 5,
         alignItems: 'flex-start',
+        height: 100,
     },
     cardAmount: {
         fontSize: 24,
@@ -109,15 +64,43 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 50,
         paddingHorizontal: 5,
+        // flexDirection: 'row',
+    },
+    contentContainer: {
+        // justifyContent: 'center',
+    },
+    grid: {
+        // justifyContent: 'center',
+        // flexDirection: 'row',
+        // // flexWrap: 'wrap',
+        // flex: 1,
+    },
+    gridItem: {
+        margin: 5,
+        width: 150,
+        height: 150,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        elevation: 3,
+    },
+    gridItemImage: {
+        width: 100,
+        height: 100,
+        borderWidth: 1.5,
+        borderColor: 'white',
+        borderRadius: 50,
+    },
+    gridItemText: {
+        marginTop: 5,
+        textAlign: 'center',
     },
     logo: {
         flex: 1,
     },
     row: {
         height: 100,
-        flexDirection: 'row',
         paddingVertical: 5,
-        justifyContent: 'center',
     },
     spacer: {
         height: 100,

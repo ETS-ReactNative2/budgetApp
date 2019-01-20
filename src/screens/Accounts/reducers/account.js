@@ -1,83 +1,42 @@
+import _ from 'lodash'
 import * as actions from '../actions/actionTypes'
 
-const initialState = {
-    allegent: {
-        amount: 0,
-    },
-    capitalOneCredit: {
-        amount: 0,
-    },
-    capitalOneLongTerm: {
-        amount: 0,
-    },
-    capitalOneShortTerm: {
-        amount: 0,
-    },
-    capitalOneUtilities: {
-        amount: 0,
-    },
-    capitalOneGifts: {
-        amount: 0,
-    },
-    capitalOneExtras: {
-        amount: 0,
-    },
-    capitalOneVacation: {
-        amount: 0,
-    },
-    cash: {
-        amount: 0,
-    },
-    chaseCredit: {
-        amount: 0,
-    },
-    citizens: {
-        amount: 0,
-    },
-    costcoCredit: {
-        amount: 0,
-    },
-    gift: {
-        amount: 0,
-    },
-    library: {
-        amount: 0,
-    },
-    niche: {
-        amount: 0,
-    },
-    sale: {
-        amount: 0,
-    },
-    synchrony: {
-        amount: 0,
-    },
-    other: {
-        amount: 0,
-    },
-}
-
-export default function accountReducer(state = initialState, action = {}) {
-    const updatedAccounts = state.accounts
+export default function accountReducer(accounts = [], action = {}) {
+    const index = _.findIndex(accounts, entry => entry.name === action.name)
+    const numAmount = parseFloat(action.amount)
     switch (action.type) {
         case actions.ACCOUNT_ADD:
-            if (Object.keys(updatedAccounts).includes(action.account)) {
-                updatedAccounts[action.name].amount += action.amount
-            } else {
-                updatedAccounts[action.name].amount = action.amount
+            if (index === -1) {
+                return [...accounts, { name: action.name, amount: numAmount }]
             }
-            return { ...state, accounts: updatedAccounts }
+            return [
+                ...accounts.slice(0, index),
+                Object.assign({}, accounts[index], {
+                    amount: accounts[index].amount + numAmount,
+                }),
+                ...accounts.slice(index + 1),
+            ]
         case actions.ACCOUNT_SUBTRACT:
-            if (Object.keys(updatedAccounts).includes(action.account)) {
-                updatedAccounts[action.name].amount -= action.amount
-            } else {
-                updatedAccounts[action.name].amount = action.amount
+            if (index === -1) {
+                return [...accounts, { name: action.name, amount: numAmount * -1 }]
             }
-            return { ...state, accounts: updatedAccounts }
+            return [
+                ...accounts.slice(0, index),
+                Object.assign({}, accounts[index], {
+                    amount: accounts[index].amount - numAmount,
+                }),
+                ...accounts.slice(index + 1),
+            ]
         case actions.EDIT:
-            updatedAccounts[action.account].amount = action.amount
-            return { ...state, accounts: updatedAccounts }
+            console.log('reducer', action)
+            return [
+                ...accounts.slice(0, index),
+                Object.assign({}, accounts[index], {
+                    amount: numAmount,
+                }),
+                ...accounts.slice(index + 1),
+            ]
         default:
-            return { ...state, accounts: initialState }
+            return accounts
     }
 }
