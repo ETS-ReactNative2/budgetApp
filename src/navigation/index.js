@@ -21,8 +21,8 @@ class MonthScreen extends React.Component {
 const Navigation = createMaterialTopTabNavigator(
     {
         LEDGER: Ledger,
-        ACCOUNTS: Accounts,
         MONTH: MonthScreen,
+        ACCOUNTS: Accounts,
         ANALYSIS: Analysis,
     },
     {

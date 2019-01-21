@@ -1,26 +1,27 @@
-import { categories as categoriesObj } from '../../../constants/categories'
+import { categories as categoriesObj, filteredCategories } from '../../../constants/categories'
 
-export const getCategoryData = (ledgerEntries, unit, interval) => {
+export const getCategoryData = (ledgerEntries, unit) => {
     const categoryNames = []
     const categories = []
     let total = 0
 
     ledgerEntries.forEach(entry => {
-        const index = categoryNames.indexOf(entry.category)
-        if (index === -1) {
-            categoryNames.push(entry.category)
-            categories.push({
-                key: entry.category,
-                name: entry.category,
-                rawValue: parseFloat(entry.amount),
-                svg: { fill: categoriesObj[entry.category].color },
-            })
-        } else {
-            categories[index].rawValue += parseFloat(entry.amount)
+        if (!filteredCategories.includes(entry.category)) {
+            const index = categoryNames.indexOf(entry.category)
+            if (index === -1) {
+                categoryNames.push(entry.category)
+                categories.push({
+                    key: entry.category,
+                    name: entry.category,
+                    rawValue: parseFloat(entry.amount),
+                    svg: { fill: categoriesObj[entry.category].color },
+                })
+            } else {
+                categories[index].rawValue += parseFloat(entry.amount)
+            }
+            total += parseFloat(entry.amount)
         }
-        total += parseFloat(entry.amount)
     })
-
     categories.sort((categoryA, categoryB) => categoryA.value - categoryB.value)
 
     categories.forEach(category => {
@@ -40,5 +41,9 @@ export const getCategoryData = (ledgerEntries, unit, interval) => {
         })
     }
 
-    return categories.filter(category => category.percent > 1)
+    // const relevantCategories = categories.filter(
+    //     category => !filteredCategories.includes(category.name),
+    // )
+    const bigEnoughCategories = categories.filter(category => category.percent > 1)
+    return bigEnoughCategories
 }

@@ -8,7 +8,7 @@ import { Button, Text, TextInput } from 'react-native-paper'
 import { compose } from 'redux'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { accounts, displayNames } from '../../../constants/accounts'
+import { displayNames } from '../../../constants/accounts'
 
 const FormTextInput = compose(
     makeInput,
@@ -33,7 +33,6 @@ class AccountsModal extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>

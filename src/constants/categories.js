@@ -51,6 +51,10 @@ export const categories = {
         displayName: 'Household Goods',
         color: '#af72bf',
     },
+    income: {
+        displayName: 'Income',
+        color: '#13567a',
+    },
     kidsThings: {
         displayName: 'Kids Things',
         color: '#bf9472',
@@ -91,6 +95,10 @@ export const categories = {
         displayName: 'Small Misc Expenses',
         color: '#b9bf72',
     },
+    transfer: {
+        displayName: 'Transfer',
+        color: '#fa9320',
+    },
     travel: {
         displayName: 'Travel',
         color: '#7287bf',
@@ -104,3 +112,7 @@ export const categories = {
         color: '#b9bf72',
     },
 }
+
+export const categoriesKeys = Object.keys(categories)
+
+export const filteredCategories = ['income', 'transfer']

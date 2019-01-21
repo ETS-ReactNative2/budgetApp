@@ -28,7 +28,6 @@ export default function accountReducer(accounts = [], action = {}) {
                 ...accounts.slice(index + 1),
             ]
         case actions.EDIT:
-            console.log('reducer', action)
             return [
                 ...accounts.slice(0, index),
                 Object.assign({}, accounts[index], {

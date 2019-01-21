@@ -3,10 +3,10 @@ export const accounts = {
         displayName: 'Allegent',
         color: '',
     },
-    capitalOneCredit: {
-        displayName: 'Capital One Credit',
-        color: '',
-    },
+    // capitalOneCredit: {
+    //     displayName: 'Capital One Credit',
+    //     color: '',
+    // },
     capitalOneLongTerm: {
         displayName: 'Capital One Long-Term',
         color: '',
@@ -35,18 +35,18 @@ export const accounts = {
         displayName: 'Cash',
         color: '',
     },
-    chaseCredit: {
-        displayName: 'Chase Credit',
-        color: '',
-    },
+    // chaseCredit: {
+    //     displayName: 'Chase Credit',
+    //     color: '',
+    // },
     citizens: {
         displayName: 'Citizens',
         color: '',
     },
-    costcoCredit: {
-        displayName: 'Costco Credit',
-        color: '',
-    },
+    // costcoCredit: {
+    //     displayName: 'Costco Credit',
+    //     color: '',
+    // },
     expense: {
         displayName: 'Expenses',
         color: '',
@@ -79,7 +79,7 @@ export const accounts = {
 
 export const displayNames = {
     Allegent: 'allegent',
-    'Capital One Credit': 'capitalOneCredit',
+    // 'Capital One Credit': 'capitalOneCredit',
     'Capital One Long-Term': 'capitalOneLongTerm',
     'Capital One Short-Term': 'capitalOneShortTerm',
     'Capital One Utilities': 'capitalOneUtilities',
@@ -87,9 +87,9 @@ export const displayNames = {
     'Capital One Extras': 'capitalOneExtras',
     'Capital One Vacation': 'capitalOneVacation',
     Cash: 'cash',
-    'Chase Credit': 'chaseCredit',
+    // 'Chase Credit': 'chaseCredit',
     Citizens: 'citizens',
-    'Costco Credit': 'costcoCredit',
+    // 'Costco Credit': 'costcoCredit',
     Expenses: 'expense',
     Gift: 'gift',
     Library: 'library',
@@ -98,3 +98,5 @@ export const displayNames = {
     Synchrony: 'synchrony',
     Other: 'other',
 }
+
+export const filteredAccounts = ['expense', 'gift', 'library', 'niche', 'sale', 'other', 'vanguard']

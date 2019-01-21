@@ -2,17 +2,14 @@ import React from 'react'
 import { Picker, StyleSheet, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import makeInput, {
-    keyboardModal,
-    withPickerValues,
     withNextInputAutoFocusForm,
     withNextInputAutoFocusInput,
 } from 'react-native-formik'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { compose } from 'redux'
-import { Formik, Field } from 'formik'
+import { Formik } from 'formik'
 import * as Yup from 'yup'
-import MaterialTextInput from '../../../components/MaterialTextInput'
-import { categories } from '../../../constants/categories'
+import { categories, categoriesKeys } from '../../../constants/categories'
 
 const FormTextInput = compose(
     makeInput,
@@ -42,7 +39,7 @@ class AddLedgerEntry extends React.Component {
         this.state = {
             category: 'uncategorized',
             date: getDate(),
-            moneySource: 'capitalOneCredit',
+            moneySource: 'citizens',
             moneyDestination: 'expense',
         }
     }
@@ -127,7 +124,6 @@ class AddLedgerEntry extends React.Component {
                             onValueChange={itemValue => this.setState({ moneySource: itemValue })}
                         >
                             <Picker.Item label="Allegent" value="allegent" />
-                            <Picker.Item label="Capital One Credit" value="capitalOneCredit" />
                             <Picker.Item label="Capital One Long-Term" value="capitalOneLongTerm" />
                             <Picker.Item
                                 label="Capital One Short-Term"
@@ -141,10 +137,7 @@ class AddLedgerEntry extends React.Component {
                             <Picker.Item label="Capital One Extras" value="capitalOneExtras" />
                             <Picker.Item label="Capital One Vacation" value="capitalOneVacation" />
                             <Picker.Item label="Cash" value="cash" />
-                            <Picker.Item label="Chase Credit" value="chaseCredit" />
-
                             <Picker.Item label="Citizens" value="citizens" />
-                            <Picker.Item label="Costco Credit" value="costcoCredit" />
                             <Picker.Item label="Gift" value="gift" />
                             <Picker.Item label="Library" value="library" />
                             <Picker.Item label="Niche" value="niche" />
@@ -162,7 +155,6 @@ class AddLedgerEntry extends React.Component {
                             }
                         >
                             <Picker.Item label="Allegent" value="allegent" />
-                            <Picker.Item label="Capital One Credit" value="capitalOneCredit" />
                             <Picker.Item label="Capital One Long-Term" value="capitalOneLongTerm" />
                             <Picker.Item
                                 label="Capital One Short-Term"
@@ -176,9 +168,7 @@ class AddLedgerEntry extends React.Component {
                             <Picker.Item label="Capital One Extras" value="capitalOneExtras" />
                             <Picker.Item label="Capital One Vacation" value="capitalOneVacation" />
                             <Picker.Item label="Cash" value="cash" />
-                            <Picker.Item label="Chase Credit" value="chaseCredit" />
                             <Picker.Item label="Citizens" value="citizens" />
-                            <Picker.Item label="Costco Credit" value="costcoCredit" />
                             <Picker.Item label="Expense" value="expense" />
                             <Picker.Item label="Synchrony" value="synchrony" />
                             <Picker.Item label="Vanguard" value="vanguard" />
@@ -193,32 +183,13 @@ class AddLedgerEntry extends React.Component {
                             selectedValue={this.state.category}
                             onValueChange={itemValue => this.setState({ category: itemValue })}
                         >
-                            <Picker.Item label="Babysitting" value="babysitting" />
-                            <Picker.Item label="Car Costs" value="carCosts" />
-                            <Picker.Item label="Cell Phone" value="cellPhone" />
-                            <Picker.Item label="Clothes" value="clothes" />
-                            <Picker.Item label="Eating Out" value="eatingOut" />
-                            <Picker.Item label="Electricity" value="electricity" />
-                            <Picker.Item label="Entertainment" value="entertainment" />
-                            <Picker.Item label="Fixed Bills" value="fixedBills" />
-                            <Picker.Item label="Food Groceries" value="foodGroceries" />
-                            <Picker.Item label="Gas" value="gas" />
-                            <Picker.Item label="Gifts" value="gifts" />
-                            <Picker.Item label="Heating gas" value="heatingGas" />
-                            <Picker.Item label="Household Goods" value="householdGoods" />
-                            <Picker.Item label="Kids Things" value="kidsThings" />
-                            <Picker.Item label="Loan" value="loan" />
-                            <Picker.Item label="Mortgage" value="mortgage" />
-                            <Picker.Item label="Non-Essential Items" value="nonEssentialItems" />
-                            <Picker.Item label="OSLA" value="osla" />
-                            <Picker.Item label="Pet Costs" value="petCosts" />
-                            <Picker.Item label="Preschool" value="preschool" />
-                            <Picker.Item label="Retirement" value="retirement" />
-                            <Picker.Item label="Savings" value="savings" />
-                            <Picker.Item label="Small Misc Expenses" value="smallMiscExpenses" />
-                            <Picker.Item label="Travel" value="travel" />
-                            <Picker.Item label="Uncategorized" value="uncategorized" />
-                            <Picker.Item label="Water Bill" value="waterBill" />
+                            {categoriesKeys.map(category => (
+                                <Picker.Item
+                                    key={category}
+                                    label={categories[category].displayName}
+                                    value={category}
+                                />
+                            ))}
                         </Picker>
                     </View>
                     <Formik

@@ -30,28 +30,13 @@ class Ledger extends React.Component {
             date: this.getDate().slice(5),
             description: 'wasted it',
         }
-        console.log(this.props, newEntry)
         this.props.addLedgerEntry(newEntry)
     }
 
     render() {
-        const { ledger } = this.props
-        console.log(this.props)
         return (
             <ScrollView>
                 <View style={styles.ledger}>
-                    {
-                        // This will render a row for each data element.
-                        // this.props.ledger.map((entry, i) =>
-                        //     <LedgerEntry
-                        //         key={entry.description+i}
-                        //         entry={entry}
-                        //         index={i}
-                        //     />
-                        // )
-                        // <Text style={{flex:1}}>Hey!</Text>
-                        // <Text style={{flex:1}}>{ledger.ledger.length}</Text>
-                    }
                     <View style={styles.buttonContainer}>
                         <Button label="New Entry" onPress={this.handlePress} raised />
                     </View>

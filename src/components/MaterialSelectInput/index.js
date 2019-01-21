@@ -16,17 +16,14 @@ export default class MaterialTextInput extends React.PureComponent {
                     onValueChange={itemValue => this.setState({ moneySource: itemValue })}
                 >
                     <Picker.Item label="Allegent" value="allegent" />
-                    <Picker.Item label="Capital One Credit" value="capitalOneCredit" />
                     <Picker.Item label="Capital One Long-Term" value="capitalOneLongTerm" />
                     <Picker.Item label="Capital One Short-Term" value="capitalOneShortTerm" />
                     <Picker.Item label="Capital One Utilities" value="capitalOneUtilities" />
                     <Picker.Item label="Capital One Gifts" value="capitalOneGifts" />
                     <Picker.Item label="Capital One Extras" value="capitalOneExtras" />
                     <Picker.Item label="Capital One Vacation" value="capitalOneVacation" />
-                    <Picker.Item label="Cash" value="cash" />{' '}
-                    <Picker.Item label="Chase Credit" value="chaseCredit" />
+                    <Picker.Item label="Cash" value="cash" />
                     <Picker.Item label="Citizens" value="citizens" />
-                    <Picker.Item label="Costco Credit" value="costcoCredit" />
                     <Picker.Item label="Gift" value="gift" />
                     <Picker.Item label="Library" value="library" />
                     <Picker.Item label="Niche" value="niche" />
