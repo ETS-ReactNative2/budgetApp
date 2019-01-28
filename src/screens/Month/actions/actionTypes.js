@@ -1,0 +1,2 @@
+export const EDIT = 'EDIT'
+export const SET_MONTH_MODAL_VISIBILITY = 'SET_MONTH_MODAL_VISIBILITY'

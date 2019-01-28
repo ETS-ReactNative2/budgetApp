@@ -322,9 +322,7 @@ const styles = StyleSheet.create({
         width: 100,
         borderWidth: 0,
     },
-    descriptionInput: {
-        color: '#0cc',
-    },
+    descriptionInput: {},
     errorText: {
         color: 'red',
     },

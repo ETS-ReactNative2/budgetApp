@@ -49,19 +49,20 @@ class LedgerContainer extends React.Component {
             <View style={styles.container}>
                 <BackupDataButton ledgerEntries={ledgerEntries} />
                 <NewEntryButton {...bindActionCreators(ledgerModalVisibilityActions, dispatch)} />
-                {
-                    <EntryList
-                        activeFilter={filter}
-                        ledgerEntries={ledgerEntries}
-                        {...bindActionCreators(ledgerActions, dispatch)}
-                    />
-                }
+
+                <EntryList
+                    activeFilter={filter}
+                    ledgerEntries={ledgerEntries}
+                    {...bindActionCreators(ledgerActions, dispatch)}
+                />
+
                 {
                     // <Filters
                     //     activeFilter={filter}
                     //     {...bindActionCreators(visibilityActions, dispatch)}
                     // />
                 }
+
                 <Modal
                     animationType="slide"
                     transparent={false}

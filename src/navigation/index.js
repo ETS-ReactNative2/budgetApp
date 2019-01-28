@@ -3,25 +3,16 @@
 
 import React from 'react'
 import { createMaterialTopTabNavigator } from 'react-navigation'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 import Ledger from '../screens/Ledger'
+import Month from '../screens/Month'
 import Accounts from '../screens/Accounts'
 import Analysis from '../screens/Analysis'
-
-class MonthScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Month!</Text>
-            </View>
-        )
-    }
-}
 
 const Navigation = createMaterialTopTabNavigator(
     {
         LEDGER: Ledger,
-        MONTH: MonthScreen,
+        MONTH: Month,
         ACCOUNTS: Accounts,
         ANALYSIS: Analysis,
     },
