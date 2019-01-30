@@ -66,7 +66,6 @@ class AccountsModal extends React.Component {
                                             label="New Amount"
                                             mode="flat"
                                             name="amount"
-                                            onChangeText={this.handleOnAmountChange}
                                             placeholder="$"
                                             style={styles.amountInput}
                                             type="amount"

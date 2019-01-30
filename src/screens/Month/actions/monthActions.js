@@ -1,16 +1,22 @@
 import * as actions from './actionTypes'
 
-export function editMonthLimit({ amount = 0 }) {
+export function editMonthTarget({ monthTarget = 0 }) {
     return {
-        type: actions.EDIT,
-        amount,
+        type: actions.EDIT_TARGET,
+        monthTarget,
     }
 }
 
-export function showModal(previousAmount) {
+export function editMonthCurrent({ monthCurrent = 0 }) {
+    return {
+        type: actions.EDIT_CURRENT,
+        monthCurrent,
+    }
+}
+
+export function showModal() {
     return {
         type: actions.SET_MONTH_MODAL_VISIBILITY,
-        previousAmount,
         visible: true,
     }
 }

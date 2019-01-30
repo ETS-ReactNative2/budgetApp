@@ -2,7 +2,7 @@ import * as actions from './actionTypes'
 import { guidGenerator } from '../../../utils/guidGenerator'
 
 export function addLedgerEntry(
-    { amount = 0, category, date, description, moneyDestination, moneySource },
+    { amount = 0, category, date, day, description, moneyDestination, moneySource, month, year },
     completed,
 ) {
     const numAmount = parseFloat(Math.round(amount * 100) / 100).toFixed(2)
@@ -13,9 +13,12 @@ export function addLedgerEntry(
             amount: numAmount,
             category,
             date,
+            day,
             description,
             moneyDestination,
             moneySource,
+            month,
+            year,
             completed: completed === true,
         },
     }

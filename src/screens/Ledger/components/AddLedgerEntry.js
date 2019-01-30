@@ -30,22 +30,34 @@ const getDate = () => {
     const dd = today.getDate()
     const mm = today.getMonth() + 1 // January is 0!
     const yyyy = today.getFullYear()
-    return `${mm}/${dd} ${yyyy}`
+    return {
+        day: dd,
+        month: mm,
+        year: yyyy,
+        date: `${mm}/${dd} ${yyyy}`,
+    }
 }
 
 class AddLedgerEntry extends React.Component {
     constructor(props) {
         super(props)
+        const dateObj = getDate()
         this.state = {
             category: 'uncategorized',
-            date: getDate(),
+            date: dateObj.date,
+            day: dateObj.day,
+            month: dateObj.month,
+            year: dateObj.year,
             moneySource: 'citizens',
             moneyDestination: 'expense',
         }
     }
 
     handleOnDateChange = date => {
-        this.setState({ date })
+        const day = parseInt(date.substring(0, 2), 10)
+        const month = parseInt(date.substring(3, 5), 10)
+        const year = parseInt(date.substring(6, 10), 10)
+        this.setState({ day, month, year, date })
     }
 
     addLedgerEntry = values => {
@@ -58,9 +70,12 @@ class AddLedgerEntry extends React.Component {
                 amount: values.amount,
                 category: this.state.category,
                 date: this.state.date,
+                day: this.state.day,
                 description,
                 moneyDestination: this.state.moneyDestination,
                 moneySource: this.state.moneySource,
+                month: this.state.month,
+                year: this.state.year,
             },
             true,
         )
@@ -227,7 +242,6 @@ class AddLedgerEntry extends React.Component {
                                             label="Amount"
                                             mode="flat"
                                             name="amount"
-                                            onChangeText={this.handleOnAmountChange}
                                             placeholder="$"
                                             style={styles.amountInput}
                                             type="amount"

@@ -3,9 +3,10 @@ import { Alert, Modal, StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as monthActions from '../actions/monthActions'
-// import { AccountsList } from '../components/AccountsList'
 import MonthModal from '../components/MonthModal'
 import store from '../../../store'
+import EditMonthTargetButton from '../components/EditMonthTargetButton'
+// import MonthlySpendingLineChart from '../components/MonthlySpendingLineChart'
 
 class MonthContainer extends React.Component {
     handleCloseModal = () => {
@@ -24,10 +25,25 @@ class MonthContainer extends React.Component {
     }
 
     render() {
-        const { dispatch, ledgerEntries, monthModalVisible, previousAmount } = this.props
+        const { dispatch, ledgerEntries, monthModalVisible, month } = this.props
+        console.log(month)
         return (
             <View style={styles.container}>
-                <Text>YOYO{ledgerEntries[0].description}</Text>
+                {/* <View style={styles.chart}>
+                    <MonthlySpendingLineChart
+                        ledgerEntries={ledgerEntries}
+                        previousAmount={previousAmount}
+                    />
+                </View> */}
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>The last target you set:</Text>
+                    <Text style={styles.cardAmount}>{month && month.monthTarget}</Text>
+                    <Text style={styles.cardTitle}>How much is left:</Text>
+                    <Text style={styles.cardAmount}>{month && month.monthTarget}</Text>
+                </View>
+
+                <EditMonthTargetButton {...bindActionCreators(monthActions, dispatch)} />
+
                 <Modal
                     animationType="slide"
                     transparent={false}
@@ -35,7 +51,8 @@ class MonthContainer extends React.Component {
                     onRequestClose={this.handleCloseModal}
                 >
                     <MonthModal
-                        previousAmount={previousAmount}
+                        monthCurrent={month && month.monthCurrent}
+                        monthTarget={month && month.monthTarget}
                         {...bindActionCreators(monthActions, dispatch)}
                     />
                 </Modal>
@@ -45,15 +62,42 @@ class MonthContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        elevation: 5,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        margin: 30,
+        alignSelf: 'center',
+        height: 250,
+        width: 300,
+    },
+    cardAmount: {
+        fontSize: 24,
+        marginHorizontal: 8,
+    },
+    cardTitle: {
+        color: 'rgb(126, 89, 191)',
+        fontSize: 16,
+        margin: 8,
+        marginBottom: 0,
+    },
+    chart: {
+        margin: 15,
+        backgroundColor: 'white',
+        elevation: 2,
+    },
     container: {
         flex: 1,
+        justifyContent: 'flex-start',
     },
 })
 
 const mapStateToProps = state => ({
     ledgerEntries: state.ledgerEntries,
-    monthModalVisible: state.accountsModal.visible,
-    previousAmount: state.accountsModal.previousAmount,
+    monthModalVisible: state.monthModal.visible,
+    month: state.month,
 })
 
 export default connect(

@@ -1,11 +1,25 @@
 import * as actions from '../actions/actionTypes'
 
-export default function monthReducer(monthLimit, action = {}) {
-    const numAmount = parseFloat(action.amount)
+const initialState = {
+    monthTarget: 0,
+    monthCurrent: 0,
+}
+
+export default function monthReducer(state = initialState, action = {}) {
+    const numTarget = parseFloat(action.monthTarget)
+    const numCurrent = parseFloat(action.monthCurrent)
     switch (action.type) {
-        case actions.EDIT:
-            return numAmount
+        case actions.EDIT_TARGET:
+            return {
+                ...state,
+                monthTarget: numTarget,
+            }
+        case actions.EDIT_CURRENT:
+            return {
+                ...state,
+                monthCurrent: numCurrent,
+            }
         default:
-            return monthLimit
+            return state
     }
 }

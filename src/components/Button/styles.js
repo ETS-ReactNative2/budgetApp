@@ -8,10 +8,10 @@ export default create({
     buttonRaised: {
         borderRadius: 5,
         ios: {
-            background: navy03,
+            backgroundColor: navy03,
         },
         android: {
-            background: navy03,
+            backgroundColor: navy03,
             elevation: 3,
         },
     },

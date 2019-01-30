@@ -17,15 +17,15 @@ const FormTextInput = compose(
 const Form = withNextInputAutoFocusForm(View)
 
 const validationSchema = Yup.object().shape({
-    amount: Yup.number()
+    monthTarget: Yup.number()
         .typeError('Please enter a number')
         .required('Please enter an amount'),
 })
 
 class MonthModal extends React.Component {
-    editMonthLimit = ({ amount }) => {
-        this.props.editMonthLimit({
-            amount,
+    editMonthTarget = ({ monthTarget }) => {
+        this.props.editMonthTarget({
+            monthTarget,
         })
         this.props.hideModal()
     }
@@ -43,13 +43,13 @@ class MonthModal extends React.Component {
                 <View style={styles.content}>
                     <Text style={{ fontSize: 16, color: 'rgb(126, 89, 191)' }}>Month</Text>
                     <Text style={{ fontSize: 14, color: 'rgb(175, 175, 175)' }}>
-                        Previous Amount:
+                        This is your target:
                     </Text>
                     <Text style={{ fontSize: 18, color: 'rgb(126, 126, 126)' }}>
-                        {this.props.previousAmount}
+                        {this.props.monthTarget}
                     </Text>
                     <Formik
-                        onSubmit={this.editMonthLimit}
+                        onSubmit={this.editMonthTarget}
                         validateOnBlur
                         validationSchema={validationSchema}
                         render={props => (
@@ -61,11 +61,10 @@ class MonthModal extends React.Component {
                                             keyboardType="numeric"
                                             label="New Amount"
                                             mode="flat"
-                                            name="amount"
-                                            onChangeText={this.handleOnAmountChange}
+                                            name="monthTarget"
                                             placeholder="$"
                                             style={styles.amountInput}
-                                            type="amount"
+                                            type="monthTarget"
                                         />
                                     </View>
                                     <View style={styles.buttonContainer}>

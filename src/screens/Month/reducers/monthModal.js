@@ -2,7 +2,6 @@ import * as actions from '../actions/actionTypes'
 
 const initialState = {
     visible: false,
-    previousAmount: '0',
 }
 
 export default function monthModalVisibilityReducer(state = initialState, action = {}) {
@@ -11,7 +10,6 @@ export default function monthModalVisibilityReducer(state = initialState, action
             return {
                 ...state,
                 visible: action.visible,
-                previousAmount: action.previousAmount,
             }
         default:
             return state
