@@ -20,12 +20,18 @@ const validationSchema = Yup.object().shape({
     monthTarget: Yup.number()
         .typeError('Please enter a number')
         .required('Please enter an amount'),
+    monthCurrent: Yup.number()
+        .typeError('Please enter a number')
+        .required('Please enter an amount'),
 })
 
 class MonthModal extends React.Component {
-    editMonthTarget = ({ monthTarget }) => {
+    editMonthTarget = ({ monthTarget, monthCurrent }) => {
         this.props.editMonthTarget({
             monthTarget,
+        })
+        this.props.editMonthCurrent({
+            monthCurrent,
         })
         this.props.hideModal()
     }
@@ -41,46 +47,51 @@ class MonthModal extends React.Component {
                 </View>
 
                 <View style={styles.content}>
-                    <Text style={{ fontSize: 16, color: 'rgb(126, 89, 191)' }}>Month</Text>
-                    <Text style={{ fontSize: 14, color: 'rgb(175, 175, 175)' }}>
-                        This is your target:
-                    </Text>
-                    <Text style={{ fontSize: 18, color: 'rgb(126, 126, 126)' }}>
-                        {this.props.monthTarget}
-                    </Text>
                     <Formik
+                        initialValues={{
+                            monthTarget: this.props.monthTarget.toString(),
+                            monthCurrent: this.props.monthCurrent.toString(),
+                        }}
                         onSubmit={this.editMonthTarget}
                         validateOnBlur
                         validationSchema={validationSchema}
                         render={props => (
                             <Form>
-                                <View style={styles.buttonRow}>
-                                    <View style={styles.amountInputContainer}>
-                                        <FormTextInput
-                                            error={props.errors && props.errors.length}
-                                            keyboardType="numeric"
-                                            label="New Amount"
-                                            mode="flat"
-                                            name="monthTarget"
-                                            placeholder="$"
-                                            style={styles.amountInput}
-                                            type="monthTarget"
-                                        />
-                                    </View>
-                                    <View style={styles.buttonContainer}>
-                                        <Button
-                                            dark
-                                            mode="contained"
-                                            onPress={props.handleSubmit}
-                                            style={styles.button}
-                                        >
-                                            Update
-                                        </Button>
-                                    </View>
-                                </View>
-                                {props.errors && props.errors.amount && props.touched.amount && (
-                                    <Text style={styles.errorText}>{props.errors.amount}</Text>
-                                )}
+                                <FormTextInput
+                                    error={props.errors && props.errors.length}
+                                    keyboardType="numeric"
+                                    label="Current spending target"
+                                    mode="flat"
+                                    name="monthTarget"
+                                    value={props.values.monthTarget}
+                                    style={styles.textInput}
+                                />
+                                {props.errors &&
+                                    props.errors.monthTarget &&
+                                    props.touched.monthTarget && (
+                                        <Text style={styles.errorText}>
+                                            {props.errors.monthTarget}
+                                        </Text>
+                                    )}
+                                <FormTextInput
+                                    error={props.errors && props.errors.length}
+                                    keyboardType="numeric"
+                                    label="Amount remaining on the target"
+                                    mode="flat"
+                                    name="monthCurrent"
+                                    value={props.values.monthCurrent}
+                                    style={styles.textInput}
+                                />
+                                {props.errors &&
+                                    props.errors.monthCurrent &&
+                                    props.touched.monthCurrent && (
+                                        <Text style={styles.errorText}>
+                                            {props.errors.monthCurrent}
+                                        </Text>
+                                    )}
+                                <Button dark mode="contained" onPress={props.handleSubmit}>
+                                    Update
+                                </Button>
                             </Form>
                         )}
                     />
@@ -91,16 +102,13 @@ class MonthModal extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    amountInput: {
-        flex: 1,
-        marginRight: 10,
-    },
     amountInputContainer: {
-        alignItems: 'flex-start',
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        marginTop: 10,
+        // alignItems: 'flex-start',
+        // flex: 2,
+        // flexDirection: 'row',
+        // justifyContent: 'flex-start',
+        // marginTop: 10,
+        borderWidth: 1,
     },
     amountInputDollarSign: {
         alignSelf: 'flex-end',
@@ -139,6 +147,10 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: 'red',
+        marginBottom: 15,
+    },
+    textInput: {
+        marginBottom: 15,
     },
     toolbar: {
         backgroundColor: 'rgb(126, 89, 191)',

@@ -8,6 +8,10 @@ import store from '../../../store'
 import EditMonthTargetButton from '../components/EditMonthTargetButton'
 // import MonthlySpendingLineChart from '../components/MonthlySpendingLineChart'
 
+const getDisplayAmount = number => {
+    return parseFloat(Math.round(number * 100) / 100).toFixed(2)
+}
+
 class MonthContainer extends React.Component {
     handleCloseModal = () => {
         Alert.alert(
@@ -25,8 +29,7 @@ class MonthContainer extends React.Component {
     }
 
     render() {
-        const { dispatch, ledgerEntries, monthModalVisible, month } = this.props
-        console.log(month)
+        const { dispatch, monthModalVisible, month } = this.props
         return (
             <View style={styles.container}>
                 {/* <View style={styles.chart}>
@@ -36,10 +39,14 @@ class MonthContainer extends React.Component {
                     />
                 </View> */}
                 <View style={styles.card}>
-                    <Text style={styles.cardTitle}>The last target you set:</Text>
-                    <Text style={styles.cardAmount}>{month && month.monthTarget}</Text>
-                    <Text style={styles.cardTitle}>How much is left:</Text>
-                    <Text style={styles.cardAmount}>{month && month.monthTarget}</Text>
+                    <Text style={styles.cardTitle}>Current spending target:</Text>
+                    <Text style={styles.cardAmount}>
+                        {`$${month && getDisplayAmount(month.monthTarget)}`}
+                    </Text>
+                    <Text style={styles.cardTitle}>Amount remaining:</Text>
+                    <Text style={styles.cardAmount}>
+                        {`$${month && getDisplayAmount(month.monthCurrent)}`}
+                    </Text>
                 </View>
 
                 <EditMonthTargetButton {...bindActionCreators(monthActions, dispatch)} />
@@ -70,11 +77,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 30,
         alignSelf: 'center',
-        height: 250,
         width: 300,
     },
     cardAmount: {
-        fontSize: 24,
+        fontSize: 48,
         marginHorizontal: 8,
     },
     cardTitle: {
