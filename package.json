@@ -18,7 +18,7 @@
     "lodash": "^4.17.11",
     "prop-types": "15.6.2",
     "react": "^16.6.3",
-    "react-native": "^0.57.5",
+    "react-native": "^0.58.3",
     "react-native-datepicker": "1.7.2",
     "react-native-email": "1.0.2",
     "react-native-formik": "^1.5.5",
