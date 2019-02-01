@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as accountsActions from '../../Accounts/actions/accountsActions'
 import * as ledgerActions from '../actions/ledgerActions'
+import * as monthActions from '../../Month/actions/monthActions'
 import * as ledgerModalVisibilityActions from '../actions/ledgerModalVisibilityActions'
 // import { VisibilityFilters } from '../actions/actionTypes'
 import { NewEntryButton } from '../components/NewEntryButton'
@@ -11,7 +12,7 @@ import { BackupDataButton } from '../components/BackupDataButton'
 import EntryList from '../components/EntryList'
 import AddLedgerEntry from '../components/AddLedgerEntry'
 
-import store from '../../../store'
+import { store } from '../../../store'
 
 // store.dispatch(
 //     ledgerActions.addLedgerEntry(
@@ -72,7 +73,9 @@ class LedgerContainer extends React.Component {
                     <AddLedgerEntry
                         {...bindActionCreators(accountsActions, dispatch)}
                         {...bindActionCreators(ledgerActions, dispatch)}
+                        {...bindActionCreators(monthActions, dispatch)}
                         {...bindActionCreators(ledgerModalVisibilityActions, dispatch)}
+                        monthCurrent={this.props.monthCurrent}
                     />
                 </Modal>
             </View>
@@ -111,6 +114,7 @@ const mapStateToProps = state => ({
     // }),
     filter: state.filter,
     ledgerModalVisible: state.ledgerModal.visible,
+    monthCurrent: state.month.monthCurrent,
 })
 
 export default connect(

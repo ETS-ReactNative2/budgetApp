@@ -4,7 +4,7 @@ const initialState = {
     visible: false,
 }
 
-export default function monthModalVisibilityReducer(state = initialState, action = {}) {
+export default function monthModalReducer(state = initialState, action = {}) {
     switch (action.type) {
         case actions.SET_MONTH_MODAL_VISIBILITY:
             return {

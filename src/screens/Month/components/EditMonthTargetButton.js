@@ -1,14 +1,16 @@
 import React from 'react'
 import { View } from 'react-native'
-import Button from '../../../components/Button'
+import { Button } from 'react-native-paper'
 
 const EditMonthTargetButton = ({ showModal }) => (
     <View
         style={{
-            margin: 15,
+            marginHorizontal: 15,
         }}
     >
-        <Button label="Adjust target or current" onPress={showModal} raised />
+        <Button onPress={showModal} mode="outlined" compact>
+            Adjust target or current
+        </Button>
     </View>
 )
 

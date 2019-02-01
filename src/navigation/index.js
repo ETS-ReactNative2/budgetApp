@@ -11,8 +11,8 @@ import Analysis from '../screens/Analysis'
 
 const Navigation = createMaterialTopTabNavigator(
     {
-        MONTH: Month,
         LEDGER: Ledger,
+        MONTH: Month,
         ACCOUNTS: Accounts,
         ANALYSIS: Analysis,
     },

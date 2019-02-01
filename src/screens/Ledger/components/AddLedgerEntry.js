@@ -83,6 +83,12 @@ class AddLedgerEntry extends React.Component {
             moneyDestination: this.state.moneyDestination,
             amount: values.amount,
         })
+        if (description !== 'transfer' && description !== 'income') {
+            const newAmount = this.props.monthCurrent - parseFloat(values.amount)
+            this.props.editMonthCurrent({
+                monthCurrent: newAmount,
+            })
+        }
         this.props.accountSubtract({ moneySource: this.state.moneySource, amount: values.amount })
         this.props.hideModal()
     }

@@ -6,7 +6,7 @@ import filterReducer from '../screens/Ledger/reducers/filters'
 import accountsModalReducer from '../screens/Accounts/reducers/accountsModal'
 import ledgerModalReducer from '../screens/Ledger/reducers/ledgerModal'
 import monthReducer from '../screens/Month/reducers/month'
-import monthModalVisibilityReducer from '../screens/Month/reducers/monthModal'
+import monthModalReducer from '../screens/Month/reducers/monthModal'
 
 const rootReducer = combineReducers({
     accounts: accountReducer,
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     month: monthReducer,
     accountsModal: accountsModalReducer,
     ledgerModal: ledgerModalReducer,
-    monthModal: monthModalVisibilityReducer,
+    monthModal: monthModalReducer,
 })
 
 export default rootReducer

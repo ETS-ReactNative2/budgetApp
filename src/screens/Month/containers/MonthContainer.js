@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as monthActions from '../actions/monthActions'
 import MonthModal from '../components/MonthModal'
-import store from '../../../store'
+import { store } from '../../../store'
 import EditMonthTargetButton from '../components/EditMonthTargetButton'
 // import MonthlySpendingLineChart from '../components/MonthlySpendingLineChart'
 
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
         elevation: 5,
         flexDirection: 'column',
         justifyContent: 'center',
-        margin: 30,
-        alignSelf: 'center',
-        width: 300,
+        padding: 30,
+        margin: 15,
+        alignSelf: 'stretch',
     },
     cardAmount: {
         fontSize: 48,

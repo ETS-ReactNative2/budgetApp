@@ -7,7 +7,7 @@ import { AccountsList } from '../components/AccountsList'
 
 import AccountsModal from '../components/AccountsModal'
 
-import store from '../../../store'
+import { store } from '../../../store'
 
 class AccountsContainer extends React.Component {
     handleCloseModal = () => {
