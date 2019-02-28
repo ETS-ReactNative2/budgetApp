@@ -54,13 +54,18 @@ class AddLedgerEntry extends React.Component {
     }
 
     handleOnDateChange = date => {
-        const day = parseInt(date.substring(0, 2), 10)
-        const month = parseInt(date.substring(3, 5), 10)
+        const day = parseInt(date.substring(3, 5), 10)
+        const month = parseInt(date.substring(0, 2), 10)
         const year = parseInt(date.substring(6, 10), 10)
         this.setState({ day, month, year, date })
     }
 
     addLedgerEntry = values => {
+        const { day, month } = this.state
+        const dayString = day > 9 ? day.toString() : `0${day.toString()}`
+        const monthString = month > 9 ? month.toString() : `0${month.toString()}`
+        const dateString = `${monthString}/${dayString}`
+
         const description =
             values.description !== ''
                 ? values.description
@@ -70,6 +75,7 @@ class AddLedgerEntry extends React.Component {
                 amount: values.amount,
                 category: this.state.category,
                 date: this.state.date,
+                dateString,
                 day: this.state.day,
                 description,
                 moneyDestination: this.state.moneyDestination,
@@ -83,7 +89,7 @@ class AddLedgerEntry extends React.Component {
             moneyDestination: this.state.moneyDestination,
             amount: values.amount,
         })
-        if (description !== 'transfer' && description !== 'income') {
+        if (this.state.category !== 'transfer' && this.state.category !== 'income') {
             const newAmount = this.props.monthCurrent - parseFloat(values.amount)
             this.props.editMonthCurrent({
                 monthCurrent: newAmount,

@@ -16,7 +16,6 @@ class EntryList extends React.Component {
     renderItem = ({ item }) => {
         const { completeTodo, incompleteTodo } = this.props
         const backgroundColor = `${categories[item.category].color}11`
-        const dateSubstring = item.date.substring(0, item.date.indexOf(' '))
         return (
             <TouchableHighlight
                 underlayColor="#e4f2d9"
@@ -39,7 +38,7 @@ class EntryList extends React.Component {
                         guid={item.guid}
                         onPress={this.handleCirclePress}
                     />
-                    <Text style={styles.dateText}>{dateSubstring}</Text>
+                    <Text style={styles.dateText}>{item.dateString}</Text>
                     <Text style={styles.descriptionText}>{item.description}</Text>
                     <Text style={styles.amountText}>
                         <Text style={{ color: '#ccc' }}>$ </Text>

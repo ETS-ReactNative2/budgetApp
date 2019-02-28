@@ -11,6 +11,7 @@ import { NewEntryButton } from '../components/NewEntryButton'
 import { BackupDataButton } from '../components/BackupDataButton'
 import EntryList from '../components/EntryList'
 import AddLedgerEntry from '../components/AddLedgerEntry'
+import { sortByDate } from '../../../utils/sortByDate'
 
 import { store } from '../../../store'
 
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     accounts: state.accounts,
-    ledgerEntries: state.ledgerEntries,
+    ledgerEntries: sortByDate(state.ledgerEntries),
     // ledgerEntries: state.ledgerEntries.payload.filter(entry => {
     //     if (state.filter === VisibilityFilters.ALL) {
     //         return true
