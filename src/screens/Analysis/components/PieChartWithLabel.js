@@ -2,7 +2,7 @@ import React from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
 import { Circle, G, Line, Text, TSpan } from 'react-native-svg'
-import { getCategoryData } from '../utils/getCategoryData'
+import { getPieChartCategoryData } from '../utils/getPieChartCategoryData'
 import { categories } from '../../../constants/categories'
 
 const { width } = Dimensions.get('window')
@@ -10,7 +10,7 @@ const { width } = Dimensions.get('window')
 export class PieChartWithLabel extends React.PureComponent {
     render() {
         const { ledgerEntries, unit, interval } = this.props
-        const pieData = getCategoryData(ledgerEntries, unit, interval)
+        const pieData = getPieChartCategoryData(ledgerEntries, unit, interval)
         const Labels = ({ slices }) =>
             slices.map(slice => {
                 const { labelCentroid, pieCentroid, data } = slice

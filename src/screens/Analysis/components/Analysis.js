@@ -1,90 +1,131 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, Slider, StyleSheet, Text, View } from 'react-native'
+import { Divider } from 'react-native-paper'
+import { HorizontaBarChart } from './HorizontalBarChart'
 import { PieChartWithLabel } from './PieChartWithLabel'
 import { Picker } from '../../../components/Picker'
+import { getLineChartCategoryData } from '../utils/getLineChartCategoryData'
 
 export class Analysis extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            pieChartUnit: 'percent',
-            pieChartInterval: 'year',
+            unit: 'percent',
+            interval: 'thisMonth',
+            threshold: 100,
         }
-        this.handlePieChartIntervalChange = this.handlePieChartIntervalChange.bind(this)
-        this.handlePieChartUnitChange = this.handlePieChartUnitChange.bind(this)
+        this.handleIntervalChange = this.handleIntervalChange.bind(this)
+        this.handleUnitChange = this.handleUnitChange.bind(this)
     }
 
-    handlePieChartUnitChange(unit) {
+    handleUnitChange(unit) {
+        const { threshold } = this.state
+        const newVal = unit === 'percent' ? threshold / 10 : threshold * 10
         this.setState({
-            pieChartUnit: unit,
+            unit,
+            threshold: newVal,
         })
     }
 
-    handlePieChartIntervalChange(interval) {
+    handleIntervalChange(interval) {
         this.setState({
-            pieChartInterval: interval,
+            interval,
         })
     }
 
     render() {
+        const { unit, interval, threshold } = this.state
+        const { ledgerEntries } = this.props
         return (
-            <View style={styles.container}>
-                <View>
-                    <PieChartWithLabel
-                        ledgerEntries={this.props.ledgerEntries}
-                        unit={this.state.pieChartUnit}
-                        interval={this.state.pieChartInterval}
-                    />
-                    <View style={styles.pickersContainer}>
-                        <Picker
-                            value={this.state.pieChartUnit}
-                            onValueChange={this.handlePieChartUnitChange}
-                            values={[
-                                { label: 'Percent', value: 'percent' },
-                                { label: 'Dollars', value: 'dollars' },
-                            ]}
-                            title="Unit"
-                        />
-                        <Picker
-                            value={this.state.pieChartInterval}
-                            onValueChange={this.handlePieChartIntervalChange}
-                            values={[
-                                { label: 'Year', value: 'year' },
-                                { label: '3 Months', value: 'threeMonths' },
-                                { label: 'Last Month', value: 'lastMonth' },
-                            ]}
-                            title="Interval"
+            <ScrollView>
+                <View style={styles.pickersContainer}>
+                    <View style={styles.sliderContainer}>
+                        <Text style={{ paddingLeft: 15, color: '#888' }}>{`Threshold value: ${
+                            unit === 'dollars' ? '$' : ''
+                        }${this.state.threshold}${unit === 'percent' ? '%' : ''}`}</Text>
+                        <Slider
+                            style={{ width: '90%' }}
+                            step={unit === 'percent' ? 10 : 100}
+                            minimumTrackTintColor="rgb(126, 89, 191)"
+                            thumbTintColor="rgb(126, 89, 191)"
+                            minimumValue={unit === 'percent' ? 10 : 100}
+                            maximumValue={unit === 'percent' ? 100 : 1000}
+                            value={this.state.threshold}
+                            onValueChange={val => this.setState({ threshold: val })}
                         />
                     </View>
+
+                    <Picker
+                        value={this.state.unit}
+                        onValueChange={this.handleUnitChange}
+                        values={[
+                            { label: 'Percent', value: 'percent' },
+                            { label: 'Dollars', value: 'dollars' },
+                        ]}
+                        title="Unit"
+                    />
+                    <Picker
+                        value={this.state.interval}
+                        onValueChange={this.handleIntervalChange}
+                        values={[
+                            { label: 'Year', value: 'lastTwelveMonths' },
+                            { label: '3 Mo', value: 'lastThreeMonths' },
+                            { label: 'Last Mo', value: 'lastMonth' },
+                            { label: 'This Mo', value: 'thisMonth' },
+                        ]}
+                        title="Interval"
+                    />
                 </View>
-            </View>
+
+                <Divider />
+
+                <View style={styles.lineChartContainer}>
+                    <HorizontaBarChart
+                        data={getLineChartCategoryData({
+                            ledgerEntries,
+                            unit,
+                            interval,
+                            threshold,
+                        })}
+                    />
+                </View>
+
+                <Divider />
+
+                <View style={styles.pieChartContainer}>
+                    <PieChartWithLabel
+                        ledgerEntries={ledgerEntries}
+                        unit={unit}
+                        interval={interval}
+                        threshold={threshold}
+                    />
+                </View>
+                <Divider />
+            </ScrollView>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-    pickersContainer: { flexDirection: 'column', justifyContent: 'space-around' },
+    lineChartContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingVertical: 50,
+        paddingHorizontal: 15,
+    },
+    pieChartContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 30,
+    },
+    pickersContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        paddingVertical: 30,
+    },
+    sliderContainer: {
+        paddingBottom: 10,
+    },
 })
-
-// {
-
-//             <RadioButton.Group
-//                     onValueChange={value => this.props.onValueChange(value)}
-//                     value={this.props.value}
-//                 >
-//                     <View style={styles.radioContainer}>
-//                         <Title>{this.props.title}</Title>
-//                         <View style={styles.radioValuesContainer}>
-//                             {this.props.values.map(item => (
-//                                 <View key={item.value} style={styles.radio}>
-//                                     <View style={styles.radioButton}>
-//                                         <RadioButton value={item.value} />
-//                                     </View>
-//                                     <Text>{item.label}</Text>
-//                                 </View>
-//                             ))}
-//                         </View>
-//                     </View>
-//                 </RadioButton.Group>
-// }

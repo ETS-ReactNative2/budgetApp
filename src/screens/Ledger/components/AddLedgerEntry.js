@@ -10,6 +10,7 @@ import { compose } from 'redux'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { categories, categoriesKeys } from '../../../constants/categories'
+import { getDate } from '../../../utils/getDate'
 
 const FormTextInput = compose(
     makeInput,
@@ -24,19 +25,6 @@ const validationSchema = Yup.object().shape({
         .typeError('Please enter a number')
         .required('Please enter an amount'),
 })
-
-const getDate = () => {
-    const today = new Date()
-    const dd = today.getDate()
-    const mm = today.getMonth() + 1 // January is 0!
-    const yyyy = today.getFullYear()
-    return {
-        day: dd,
-        month: mm,
-        year: yyyy,
-        date: `${mm}/${dd} ${yyyy}`,
-    }
-}
 
 class AddLedgerEntry extends React.Component {
     constructor(props) {

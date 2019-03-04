@@ -1,6 +1,6 @@
 import { categories as categoriesObj, filteredCategories } from '../../../constants/categories'
 
-export const getCategoryData = (ledgerEntries, unit) => {
+export const getPieChartCategoryData = (ledgerEntries, unit) => {
     const categoryNames = []
     const categories = []
     let total = 0
