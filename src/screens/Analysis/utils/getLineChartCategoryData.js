@@ -60,16 +60,7 @@ export const getLineChartCategoryData = ({ ledgerEntries, unit, interval, thresh
         ) {
             firstEntryOfOneYearBack = i
         }
-        console.log(i)
-        console.log('firstEntryOfThisMonth', firstEntryOfThisMonth)
-        console.log('firstEntryOfLastMonth', firstEntryOfLastMonth)
-        console.log('firstEntryOfThreeMonthsBack', firstEntryOfThreeMonthsBack)
-        console.log('firstEntryOfOneYearBack', firstEntryOfOneYearBack)
     }
-
-    console.log('twoMonthsBack', twoMonthsBack)
-    console.log('threeMonthsBack', threeMonthsBack)
-    console.log('oneYearBack', oneYearBack)
 
     let timeFilteredEntries = []
     switch (interval) {
@@ -90,7 +81,6 @@ export const getLineChartCategoryData = ({ ledgerEntries, unit, interval, thresh
             break
         case 'thisMonth':
         default:
-            console.log(ledgerEntries)
             timeFilteredEntries = ledgerEntries.slice(firstEntryOfThisMonth, ledgerLength)
             break
     }
